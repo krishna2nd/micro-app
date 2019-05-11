@@ -14,6 +14,7 @@ import {
   Text
 } from "native-base";
 import { Platform } from "expo-core";
+import { Link } from "react-router-native";
 import { SearchBar } from "react-native-elements";
 
 const iOS = Platform.OS === "ios";
@@ -21,25 +22,26 @@ const iOS = Platform.OS === "ios";
 export default class SamsHeader extends Component {
   render() {
     return (
-
-        <Header>
-          <Left>
-            <Button transparent>
-              <Icon name="menu" />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Header</Title>
-          </Body>
-          <Right>
-            <Button transparent>
-              <Icon name="search" />
-            </Button>
-            <Button transparent>
+      <Header>
+        <Left>
+          <Button transparent>
+            <Icon name="menu" />
+          </Button>
+        </Left>
+        <Body>
+          <Title>Header</Title>
+        </Body>
+        <Right>
+          <Button transparent>
+            <Icon name="search" />
+          </Button>
+          <Button transparent>
+            <Link to="/cart">
               <Icon name="cart" />
-            </Button>
-          </Right>
-        </Header>
+            </Link>
+          </Button>
+        </Right>
+      </Header>
     );
   }
 }

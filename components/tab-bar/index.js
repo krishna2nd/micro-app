@@ -8,7 +8,6 @@ import { Platform } from "react-native";
 import routes from "../../routes";
 
 const NavigationTabBar = ({ location, props }) => {
-  //console.log(location);
   return (
     <FooterTab style={styles.nav} >
       {routes.map(ele => (
