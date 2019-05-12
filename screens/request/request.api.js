@@ -27,9 +27,9 @@ export const get = ({
   query = {},
   ...rest
 }) => (dispatch, getState, { request }) => {
-  if (dynSessConf) {
-    query._dynSessConf = getSessionConfirmationNumber();
-  }
+  // if (dynSessConf) {
+  //   query._dynSessConf = getSessionConfirmationNumber();
+  // }
   query._ = Date.now();
 
   return dispatch(
@@ -53,7 +53,7 @@ export const post = ({ url, headers, body, ...rest }) => (
   getState,
   { request }
 ) => {
-  const _dynSessConf = { _dynSessConf: getSessionConfirmationNumber() };
+  //const _dynSessConf = { _dynSessConf: getSessionConfirmationNumber() };
   const reqBody = typeof body === 'string' ? JSON.parse(body) : body;
 
   return dispatch(
@@ -68,7 +68,7 @@ export const post = ({ url, headers, body, ...rest }) => (
       ...rest,
       body: JSON.stringify({
         ...reqBody,
-        ..._dynSessConf
+        //..._dynSessConf
       })
     })
   );

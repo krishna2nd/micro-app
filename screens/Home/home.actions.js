@@ -28,6 +28,11 @@ export const {
 } = createRequestActions("homeRecomendedProducts", "home");
 
 export const {
+  fetchTaxonomyRequest,
+  fetchTaxonomySuccess,
+  fetchTaxonomyFailure
+} = createRequestActions("fetchTaxonomy", "home");
+export const {
   homeLayoutRequest,
   homeLayoutSuccess,
   homeLayoutFailure
@@ -63,12 +68,24 @@ export const fetchHomeLayout = url => (dispatch, getState) => {
       onFailure: homeRecomendedProductsFailure
     })
   );
+  dispatch(
+    fetchBackendUrl({
+      method: get,
+      url: "https://www.sams.com.mx/sams/home/?format=json",
+      onSuccess: fetchTaxonomySuccess,
+      onRequest: fetchTaxonomyRequest,
+      onFailure: fetchTaxonomyFailure
+    })
+  );
 };
 
-export const fetchBackendUrl = ({ url, method, onSuccess, onFailure, onRequest }) => (
-  dispatch,
-  getState
-) => {
+export const fetchBackendUrl = ({
+  url,
+  method,
+  onSuccess,
+  onFailure,
+  onRequest
+}) => (dispatch, getState) => {
   dispatch(onRequest());
   return dispatch(
     method({
@@ -81,12 +98,11 @@ export const fetchBackendUrl = ({ url, method, onSuccess, onFailure, onRequest }
       return response;
     })
     .catch(({ message }) => {
-      console.error("ERR", url, message)
+      console.error("ERR", url, message);
       dispatch(onFailure(message));
       return Promise.reject(message);
     });
 };
-
 
 // export const {
 //   getSessionRequest,

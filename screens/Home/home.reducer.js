@@ -1,5 +1,6 @@
 import { handleActions } from "redux-actions";
 import { LOCATION_CHANGE } from "react-router-redux";
+import { get } from "lodash";
 import { normalizeHomeLayout } from "./home.normalizr";
 import {
   homeLayoutRequest,
@@ -7,7 +8,8 @@ import {
   homeLayoutFailure,
   homeBannerSuccess,
   homeRecomendedProductsSuccess,
-  homeCategoriesSuccess
+  homeCategoriesSuccess,
+  fetchTaxonomySuccess
 } from "./home.actions";
 
 const initialState = {
@@ -42,7 +44,7 @@ export const HomeReducer = handleActions(
     }),
     [homeLayoutFailure]: (state, payload) => ({
       ...state,
-      ...payload,
+      //...payload,
       error: true
     }),
     // [getSessionSuccess]: setSessionSuccess,
@@ -58,6 +60,11 @@ export const HomeReducer = handleActions(
     [homeCategoriesSuccess]: (state, { payload: { response } }) => ({
       ...state,
       ...response
+    }),
+    [fetchTaxonomySuccess]: (state, { payload: { response } }) => ({
+      ...state,
+      departments: get(response, "headerArea[1].contents[0].departments", []),
+      mainArea: response.mainArea
     })
   },
   initialState

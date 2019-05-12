@@ -1,8 +1,9 @@
-import { bindActionCreators } from 'redux';
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 import { HomeScreen } from "./home.screen";
 import { fetchHomeLayout } from "./home.actions";
+import { getBanners, getCategories, getDepartments } from "./home.selectors";
 
 const mapStateToProps = state => ({
   //device: deviceType(state),
@@ -13,7 +14,10 @@ const mapStateToProps = state => ({
       "https://www.sams.com.mx/images/App/Splash_app/configfin.txt",
     recommendedProductsUrl:
       "https://www.walmartmobile.com.mx/sams/PLP/getRecommendedItems"
-  }
+  },
+  categories: getCategories(state),
+  banners: getBanners(state),
+  departments: getDepartments(state)
 });
 
 const mapDispatchToProps = dispatch =>
