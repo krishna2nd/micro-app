@@ -28,9 +28,13 @@
     "react-router-native": "^5.0.0",
     "react-router-redux": "^4.0.8",
     "reactotron-react-native": "^3.5.0",
+    "reactotron-redux": "^3.1.0",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-persist": "^5.10.0",
     "redux-thunk": "^2.3.0",
+    "remote-redux-devtools": "^0.5.16",
     "reselect": "^4.0.0",
     "url-search-params": "^1.1.0",
     "uuid": "^3.3.2"

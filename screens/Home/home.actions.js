@@ -15,7 +15,7 @@ export const {
   homeLayoutFailure
 } = createRequestActions('home', 'layout');
 
-export const fetchLayout = (url) => (dispatch, getState) => {
+export const fetchHomeLayout = (url) => (dispatch, getState) => {
   dispatch(homeLayoutRequest());
   //dispatch(toggleLoader(true));
 

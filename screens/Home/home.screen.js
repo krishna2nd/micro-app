@@ -42,6 +42,10 @@ export class HomeScreen extends React.Component {
       </View>
     );
   }
+  componentDidMount() {
+      console.log(this.props);
+      this.props.fetchHomeLayout(this.props.url);
+  }
 
   render() {
     return (
