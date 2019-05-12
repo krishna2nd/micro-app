@@ -60,15 +60,15 @@ export default () => {
               case 404:
               case 500:
               default:
-                dispatch(
-                  showModal({
-                    type: DIALOG,
-                    modalProps: {
-                      errorType: 'network',
-                      error: response
-                    }
-                  })
-                );
+                // dispatch(
+                //   showModal({
+                //     type: DIALOG,
+                //     modalProps: {
+                //       errorType: 'network',
+                //       error: response
+                //     }
+                //   })
+                // );
                 return Promise.reject(response);
             }
           }

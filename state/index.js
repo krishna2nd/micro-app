@@ -51,7 +51,7 @@ const createReducer = rootReducer => {
 
 const configureStore = (preloadedState = {}) => {
   // Create a history depending on the environment
-  const enhancers = [monitorReducersEnhancer, devTools()];
+  const enhancers = [monitorReducersEnhancer]; //, devTools()];
   const thunkContext = {
     request: createContext()
   };
@@ -60,10 +60,10 @@ const configureStore = (preloadedState = {}) => {
     routerMiddleware(history)
   ];
 
-  const composedEnhancers = devToolsEnhancer(
-    applyMiddleware(...middleware),
-    ...enhancers
-  );
+  const composedEnhancers = compose(applyMiddleware(...middleware), ...enhancers);
+    //devToolsEnhancer(
+    //applyMiddleware(...middleware), ...enhancers;
+  //);
 
   // Do we have preloaded state available? Great, save it.
   const initialState = preloadedState;

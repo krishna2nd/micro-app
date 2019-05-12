@@ -1,7 +1,7 @@
 /* === LIBRARIES === */
-import { createAction } from 'redux-actions';
-import { get } from '../../request/request.api';
-import { createRequestActions } from '../../request/request.utils';
+import { createAction } from "redux-actions";
+import { get } from "../../request/request.api";
+import { createRequestActions } from "../../request/request.utils";
 
 /* === CONSTANTS === */
 
@@ -10,31 +10,80 @@ import { createRequestActions } from '../../request/request.utils';
 /* === ACTIONS === */
 
 export const {
+  homeBannerRequest,
+  homeBannerSuccess,
+  homeBannerFailure
+} = createRequestActions("homeBanner", "home");
+
+export const {
+  homeCategoriesRequest,
+  homeCategoriesSuccess,
+  homeCategoriesFailure
+} = createRequestActions("homeCategories", "home");
+
+export const {
+  homeRecomendedProductsRequest,
+  homeRecomendedProductsSuccess,
+  homeRecomendedProductsFailure
+} = createRequestActions("homeRecomendedProducts", "home");
+
+export const {
   homeLayoutRequest,
   homeLayoutSuccess,
   homeLayoutFailure
-} = createRequestActions('home', 'layout');
+} = createRequestActions("homeLayout", "home");
 
-export const fetchHomeLayout = (url) => (dispatch, getState) => {
+export const fetchHomeLayout = url => (dispatch, getState) => {
+  console.log("HOME LAYOUT", url);
   dispatch(homeLayoutRequest());
-  //dispatch(toggleLoader(true));
+  dispatch(
+    fetchBackendUrl({
+      url: url.bannersApiUrl,
+      onSuccess: homeBannerSuccess,
+      onRequest: homeBannerRequest,
+      onFailure: homeBannerFailure
+    })
+  );
+  dispatch(
+    fetchBackendUrl({
+      url: url.homeCategoriesUrl,
+      onSuccess: homeCategoriesSuccess,
+      onRequest: homeCategoriesRequest,
+      onFailure: homeCategoriesFailure
+    })
+  );
+  dispatch(
+    fetchBackendUrl({
+      url: url.recommendedProductsUrl,
+      onSuccess: homeRecomendedProductsSuccess,
+      onRequest: homeRecomendedProductsRequest,
+      onFailure: homeRecomendedProductsFailure
+    })
+  );
+};
 
+export const fetchBackendUrl = ({ url, onSuccess, onFailure, onRequest }) => (
+  dispatch,
+  getState
+) => {
+  dispatch(onRequest());
+  console.log(url);
   return dispatch(
     get({
-      url: url.bannersApiUrl
+      url
     })
   )
     .then(response => {
-      dispatch(homeLayoutSuccess(response));
-      // dispatch(toggleLoader(false));
+      dispatch(onSuccess(response));
+      console.log(response);
       return response;
     })
     .catch(({ message }) => {
-      //dispatch(toggleLoader(false));
-      dispatch(homeLayoutFailure(message));
+      dispatch(onFailure(message));
       return Promise.reject(message);
     });
 };
+
 
 // export const {
 //   getSessionRequest,

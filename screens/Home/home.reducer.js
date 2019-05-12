@@ -4,7 +4,10 @@ import { normalizeHomeLayout } from "./home.normalizr";
 import {
   homeLayoutRequest,
   homeLayoutSuccess,
-  homeLayoutFailure
+  homeLayoutFailure,
+  homeBannerSuccess,
+  homeRecomendedProductsSuccess,
+  homeCategoriesSuccess
 } from "./home.actions";
 
 const initialState = {
@@ -34,17 +37,28 @@ export const HomeReducer = handleActions(
       // loading: true
     }),
     [homeLayoutSuccess]: (state, payload) => ({
-      ...state,
-      ...normalizeHomeLayout(payload)
+      ...state
+      //...normalizeHomeLayout(payload)
     }),
     [homeLayoutFailure]: (state, payload) => ({
       ...state,
       ...payload,
       error: true
-    })
+    }),
     // [getSessionSuccess]: setSessionSuccess,
     // [getSessionFailure]: setSessionFailure,
+    [homeBannerSuccess]: (state, payload) => ({
+      ...state,
+      ...payload.response
+    }),
+    [homeRecomendedProductsSuccess]: (state, payload) => ({
+      ...state,
+      ...payload.response
+    }),
+    [homeCategoriesSuccess]: (state, payload) => ({
+      ...state,
+      ...payload.response
+    })
   },
   initialState
 );
-
