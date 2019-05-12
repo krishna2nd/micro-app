@@ -1,6 +1,6 @@
 /* === LIBRARIES === */
 import { createAction } from "redux-actions";
-import { get } from "../../request/request.api";
+import { get, post } from "../../request/request.api";
 import { createRequestActions } from "../../request/request.utils";
 
 /* === CONSTANTS === */
@@ -38,6 +38,7 @@ export const fetchHomeLayout = url => (dispatch, getState) => {
   dispatch(homeLayoutRequest());
   dispatch(
     fetchBackendUrl({
+      method: get,
       url: url.bannersApiUrl,
       onSuccess: homeBannerSuccess,
       onRequest: homeBannerRequest,
@@ -46,6 +47,7 @@ export const fetchHomeLayout = url => (dispatch, getState) => {
   );
   dispatch(
     fetchBackendUrl({
+      method: get,
       url: url.homeCategoriesUrl,
       onSuccess: homeCategoriesSuccess,
       onRequest: homeCategoriesRequest,
@@ -54,6 +56,7 @@ export const fetchHomeLayout = url => (dispatch, getState) => {
   );
   dispatch(
     fetchBackendUrl({
+      method: post,
       url: url.recommendedProductsUrl,
       onSuccess: homeRecomendedProductsSuccess,
       onRequest: homeRecomendedProductsRequest,
@@ -62,23 +65,23 @@ export const fetchHomeLayout = url => (dispatch, getState) => {
   );
 };
 
-export const fetchBackendUrl = ({ url, onSuccess, onFailure, onRequest }) => (
+export const fetchBackendUrl = ({ url, method, onSuccess, onFailure, onRequest }) => (
   dispatch,
   getState
 ) => {
   dispatch(onRequest());
-  console.log(url);
   return dispatch(
-    get({
+    method({
       url
     })
   )
     .then(response => {
       dispatch(onSuccess(response));
-      console.log(response);
+      //console.log(response);
       return response;
     })
     .catch(({ message }) => {
+      console.error("ERR", url, message)
       dispatch(onFailure(message));
       return Promise.reject(message);
     });

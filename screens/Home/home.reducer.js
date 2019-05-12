@@ -47,17 +47,17 @@ export const HomeReducer = handleActions(
     }),
     // [getSessionSuccess]: setSessionSuccess,
     // [getSessionFailure]: setSessionFailure,
-    [homeBannerSuccess]: (state, payload) => ({
+    [homeBannerSuccess]: (state, { payload: { response } }) => ({
       ...state,
-      ...payload.response
+      ...response
     }),
-    [homeRecomendedProductsSuccess]: (state, payload) => ({
+    [homeRecomendedProductsSuccess]: (state, { payload: { response } }) => ({
       ...state,
-      ...payload.response
+      ...response
     }),
-    [homeCategoriesSuccess]: (state, payload) => ({
+    [homeCategoriesSuccess]: (state, { payload: { response } }) => ({
       ...state,
-      ...payload.response
+      ...response
     })
   },
   initialState
