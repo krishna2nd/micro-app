@@ -1,0 +1,11 @@
+@value base-margin, base-padding from 'src/components/shared/variables/metrics.styles.css';
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: base-padding;
+}
+
+.container p {
+  margin-bottom: base-margin;
+}

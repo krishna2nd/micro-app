@@ -1,0 +1,11 @@
+@value base-margin, base-padding from 'src/components/shared/variables/metrics.styles.css';
+@value blue, lighter-gray from 'src/components/shared/variables/colors.styles.css';
+
+.product {
+  padding: base-padding 0;
+  border-top: 1px solid lighter-gray;
+}
+
+.amount, .action {
+  text-align: right;
+}

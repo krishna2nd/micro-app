@@ -1,0 +1,30 @@
+@value metrics: 'src/components/shared/variables/metrics.styles.css';
+@value base-padding, base-margin from metrics;
+@value colors: 'src/components/shared/variables/colors.styles.css';
+@value white, lighter-gray from colors;
+
+.card {
+  border: 1px solid lighter-gray;
+  margin-top: base-margin;
+}
+
+.header, .body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.body h5 {
+  margin-right: base-margin;
+}
+
+.body,
+.actions {
+  padding: base-padding
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid lighter-gray;
+}

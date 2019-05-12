@@ -1,0 +1,40 @@
+@value sm from 'src/components/shared/variables/breakpoints.styles.css';
+@value base-padding from 'src/components/shared/variables/metrics.styles.css';
+
+.formContainer {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  padding: base-padding;
+  min-height: 700px;
+}
+
+@media (min-width: sm) {
+  .formContainer {
+    max-width: 400px;
+  }
+}
+
+.navigation {
+  display: none;
+  padding: 5px 10px;
+  background: white;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
+.navigation.isActive {
+  display: block;
+}
+
+.navigation a {
+  padding: 10px;
+}
+
+.fullWidth
+{
+  float: left;
+  width: 100%;
+}

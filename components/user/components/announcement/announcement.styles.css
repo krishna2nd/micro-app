@@ -1,0 +1,27 @@
+@value alert-red from 'src/components/shared/variables/colors.styles.css';
+
+.container {
+    text-align: left;
+}
+
+.heading {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    padding-right: 35px;
+    display: inline-block;
+}
+
+.subHeading {
+    font-size: 14px;
+    color: #565657;
+    line-height: 18px;
+    padding-right: 35px;
+}
+
+.announcementIcon {
+    font-size: 24px;
+    width: auto;
+    height: auto;
+    color: alert-red;
+}

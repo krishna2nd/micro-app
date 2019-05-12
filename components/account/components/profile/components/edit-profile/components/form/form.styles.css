@@ -1,0 +1,5 @@
+@value double-base-margin from 'src/components/shared/variables/metrics.styles.css';
+
+.actions {
+  margin-top: double-base-margin;
+}

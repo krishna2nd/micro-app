@@ -1,0 +1,36 @@
+@value sm from 'src/components/shared/variables/breakpoints.styles.css';
+@value alert-red, white, dark-blue, dark-grey from 'src/components/shared/variables/colors.styles.css';
+
+.renewBannerContent {
+    display: inline-block;
+    padding-right: 35px;
+    text-align: center;
+}
+
+.messageText {
+    color: dark-grey;
+    display: inline-block;
+    font-size: 18px;
+    margin-top: 0;
+}
+
+@media (max-width: sm) {
+    .messageText {
+        font-size: 12px;
+    }
+}
+
+.renewBtn {
+    background-color: dark-blue;
+    min-width: 150px;
+    min-height: 23.4px;
+    margin-left: 5px;
+    padding: 0 10px;
+    border-radius: 50px;
+    color: white;
+}
+
+.renewIcon {
+    color: alert-red;
+    font-size: 24px;
+}

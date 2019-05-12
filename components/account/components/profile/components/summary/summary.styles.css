@@ -1,0 +1,42 @@
+@value (
+  white,
+  lighter-gray,
+  lightest-gray
+) from 'src/components/shared/variables/colors.styles.css';
+@value sm from 'src/components/shared/variables/breakpoints.styles.css';
+@value (
+  half-base-margin,
+  base-padding,
+  base-margin
+) from 'src/components/shared/variables/metrics.styles.css';
+
+.card {
+  background: white;
+  margin: base-margin;
+  border: 1px solid lighter-gray;
+}
+.card > h5,
+.card > div {
+  padding: 0 base-padding;
+}
+.card a {
+  width: 100%;
+  padding: base-padding;
+  border-top: 1px solid lightest-gray;
+}
+.card p {
+  word-wrap: break-word;
+}
+
+.body {
+  display: flex;
+  flex-flow: wrap;
+}
+.body > div {
+  flex: 0 0 50%;
+  padding: 0 base-padding base-padding 0;
+}
+
+.associateLink {
+  padding: base-padding;
+}

@@ -1,0 +1,48 @@
+@value default-blue, lighter-gray from 'src/components/shared/variables/colors.styles.css';
+@value double-base-padding, base-padding, double-base-margin from 'src/components/shared/variables/metrics.styles.css';
+@value md from 'src/components/shared/variables/breakpoints.styles.css';
+
+.nav {
+  position: relative;
+  background: white;
+  border-bottom: 1px solid lighter-gray;
+  overflow-x: auto;
+  white-space: nowrap;
+
+  -ms-overflow-style: none;
+}
+.nav::-webkit-scrollbar {
+  display: none;
+}
+
+.backNav {
+  text-align: left;
+  padding: base-padding ;
+}
+
+@media (min-width: md) {
+  .backNav {
+    padding: base-padding double-base-padding;
+  }
+}
+
+.profileNav, .authNav {
+  text-align: center;
+}
+
+.profileNav a, .authNav a, .profileNav button {
+  display: inline-block;
+  padding: base-padding double-base-padding;
+  margin: 0;
+}
+
+.backNav svg {
+  fill: default-blue;
+  height: base-padding;
+}
+
+.backNavLabel svg {
+  position: relative;
+  top: -1px;
+  vertical-align: middle;
+}

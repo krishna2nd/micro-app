@@ -1,7 +1,9 @@
 import { combineReducers } from "redux";
-
-import AddReducer from './add';
+import { routerMiddleware, connectRouter } from "connected-react-router";
+import { history } from "../history";
+import { HomeReducer } from "../../screens/Home";
 
 export default combineReducers({
-    AddReducer
-})
+  router: connectRouter(history),
+  HomeReducer
+});

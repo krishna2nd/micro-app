@@ -1,0 +1,79 @@
+@value white, lighter-gray from 'src/components/shared/variables/colors.styles.css';
+
+.container {
+  margin: 10px 0;
+  background-color: white;
+  padding: 15px 10px;
+  border: 1px solid lighter-gray;
+  display: flex;
+}
+.checkBox{
+  align-self: center;
+}
+.container .left {
+  display: flex;
+}
+.container .right{
+  display: flex;
+  flex: 1;
+}
+
+.container .right svg{
+  height: 20px;
+}
+
+.image {
+  width: 100px;
+  padding: 0 10px;
+}
+
+.name {
+  flex: 1 1 auto;
+}
+
+.price {
+  padding: 0 10px;
+  text-align: right;
+}
+
+.oldPrice {
+  text-decoration: line-through;
+}
+
+.promotion {
+  color: red;
+  margin-right: base-margin;
+}
+
+
+.likeIcon {
+  padding: 0 10px;
+}
+
+.addToCart{
+  max-width: 150px;
+  padding: 0 10px;
+}
+
+.container button:not(:last-child) {
+  margin-bottom: 0px;
+}
+
+@media all and (max-width: 600px) {
+  .container .right{
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .name {
+    order: 1;
+    width: 60%;
+  }
+  .likeIcon {
+    order: 2;
+  }
+  .removeIcon{
+    order: 3;
+  }
+  .price {order: 4; padding-top: 10px;}
+  .addToCart { order: 5; padding-top: 10px;}
+}

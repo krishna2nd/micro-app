@@ -1,0 +1,38 @@
+@value sm from 'src/components/shared/variables/breakpoints.styles.css';
+@value (lighter-gray) from 'src/components/shared/variables/colors.styles.css';
+@value (base-padding, double-base-padding, base-margin) from 'src/components/shared/variables/metrics.styles.css';
+
+.container {
+  min-height: 500px;
+}
+
+.actions {
+  text-align: right;
+  margin-top: base-margin;
+}
+
+.header {
+  margin-bottom: base-margin;
+}
+
+.summary, .body {
+  background: white;
+  margin-bottom: base-margin;
+  padding: double-base-padding;
+  border: 1px solid lighter-gray;
+}
+
+.footer {
+  border: 1px solid lighter-gray;
+}
+
+.fullName {
+  text-transform: capitalize;
+}
+
+.details p {
+  display: inline-block;
+}
+.details p:first-child {
+  width: 80px;
+}

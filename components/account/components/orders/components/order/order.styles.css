@@ -1,0 +1,39 @@
+@value (lighter-gray, lightest-gray) from 'src/components/shared/variables/colors.styles.css';
+@value (
+  base-margin,
+  base-padding,
+  double-base-margin
+) from 'src/components/shared/variables/metrics.styles.css';
+
+.container {
+  border: 1px solid lighter-gray;
+  margin-bottom: double-base-margin;
+}
+
+.body {
+  padding: base-padding;
+}
+
+.orderNumber {
+  margin-bottom: base-margin;
+}
+.orderStatus p {
+  text-align: right;
+}
+.senttostore p,
+.orderdelivered p {
+  color: green;
+}
+.packcomplete p {
+  color: orange;
+}
+.ordercancelled p {
+  color: red;
+}
+
+.actions {
+  padding: base-padding;
+  border-top: 1px solid lightest-gray;
+  display: flex;
+  justify-content: flex-end;
+}

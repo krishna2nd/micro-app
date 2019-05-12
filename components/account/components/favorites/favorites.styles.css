@@ -1,0 +1,14 @@
+@value base-padding from 'src/components/shared/variables/metrics.styles.css';
+
+.header {
+  padding: base-padding;
+}
+
+.loadMoreBtn {
+  padding: base-padding;
+  text-align: center;
+}
+
+.loadMoreBtn button {
+  width: 30%;
+}

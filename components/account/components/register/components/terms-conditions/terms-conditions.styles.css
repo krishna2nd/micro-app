@@ -1,0 +1,4 @@
+.body {
+  /* composes: scrollbox from 'src/components/shared/common.styles.css'; */
+  max-height: 500px;
+}

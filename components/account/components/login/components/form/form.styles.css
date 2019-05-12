@@ -1,0 +1,12 @@
+@value double-base-margin from 'src/components/shared/variables/metrics.styles.css';
+
+.forgotPasswordBtn {
+  margin-bottom: double-base-margin;
+}
+
+.registerBtn  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: double-base-margin 0;
+}

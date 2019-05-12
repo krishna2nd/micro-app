@@ -1,0 +1,25 @@
+@value double-base-margin from 'src/components/shared/variables/metrics.styles.css';
+
+.actions{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: double-base-margin 0;
+}
+
+.actions button {
+  flex: 0 0 200px;
+}
+
+.deleteAll {
+  padding: 0 10px;
+}
+
+.loadMoreBtn {
+  padding: base-padding;
+  text-align: center;
+}
+
+.loadMoreBtn button {
+  width: 30%;
+}

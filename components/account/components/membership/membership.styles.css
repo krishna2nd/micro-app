@@ -1,0 +1,9 @@
+@value white from 'src/components/shared/variables/colors.styles.css';
+
+.membershipFailure {
+    color: white;
+}
+
+.membershipFailure .content {
+    margin-left: 8px;
+}

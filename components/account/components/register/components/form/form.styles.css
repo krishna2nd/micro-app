@@ -1,0 +1,14 @@
+@value double-base-margin from 'src/components/shared/variables/metrics.styles.css';
+
+.promotionCheckbox,
+.submitBtn,
+.loginBtn,
+.termsText {
+  margin-bottom: double-base-margin;
+}
+
+.loginBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
