@@ -1,7 +1,7 @@
 import { handleActions } from "redux-actions";
 import { LOCATION_CHANGE } from "react-router-redux";
 import { get } from "lodash";
-import { normalizeHomeLayout } from "./home.normalizr";
+import { normalizeHomeLayout, normalizeCarousels } from "./home.normalizr";
 import {
   homeLayoutRequest,
   homeLayoutSuccess,
@@ -13,6 +13,7 @@ import {
 } from "./home.actions";
 
 const initialState = {
+  desktop: []
   //   returnTo: HOME_PATH,
   //   sessionStatus: SESSION_STATUS.PENDING,
   //   isLoggedIn: false
@@ -64,7 +65,7 @@ export const HomeReducer = handleActions(
     [fetchTaxonomySuccess]: (state, { payload: { response } }) => ({
       ...state,
       departments: get(response, "headerArea[1].contents[0].departments", []),
-      mainArea: response.mainArea
+      desktop: normalizeCarousels(response.mainArea || [])
     })
   },
   initialState

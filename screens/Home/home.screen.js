@@ -18,6 +18,7 @@ import Menu from "./components/menu";
 import Departments from "./components/departments";
 import Memberships from "./components/memberships";
 import Divider from "../../components/divider";
+import { CarouselProductImage } from "./components/carousel";
 
 const defaultImage = "/images/logo-fixed-2.png";
 
@@ -111,44 +112,21 @@ export class HomeScreen extends React.Component {
           </Card>
           <Divider />
           <Card>
-            <View>
-              <Text style={{ fontSize: 30, fontWeight: "bold", padding: 10 }}>
-                Recently viewed
-              </Text>
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-              >
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-around",
-                    alignContent: "center",
-                    padding: 20
-                  }}
-                >
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(ele => (
-                    <View
-                      key={ele}
-                      style={{
-                        height: 100,
-                        width: 140,
-                        borderStyle: "solid",
-                        borderWidth: 1,
-                        borderColor: "red",
-                        margin: 4
-                      }}
-                    />
-                  ))}
-                </View>
-              </ScrollView>
-            </View>
-          </Card>
-          <Divider />
-          <Card>
             <Memberships host={RootDomain} />
           </Card>
+          <Divider />
+          {this.props.carousels.map((carousel, index) => (
+            <View key={index}>
+              <Card>
+                <CarouselProductImage
+                  products={carousel.contents}
+                  defaultImage={defaultImage}
+                  host={RootDomain}
+                />
+              </Card>
+              <Divider />
+            </View>
+          ))}
         </ScrollView>
       </View>
     );

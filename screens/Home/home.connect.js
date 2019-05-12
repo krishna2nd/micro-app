@@ -3,7 +3,12 @@ import { connect } from "react-redux";
 
 import { HomeScreen } from "./home.screen";
 import { fetchHomeLayout } from "./home.actions";
-import { getBanners, getCategories, getDepartments } from "./home.selectors";
+import {
+  getBanners,
+  getCategories,
+  getDepartments,
+  productCarousels
+} from "./home.selectors";
 
 const mapStateToProps = state => ({
   //device: deviceType(state),
@@ -17,7 +22,8 @@ const mapStateToProps = state => ({
   },
   categories: getCategories(state),
   banners: getBanners(state),
-  departments: getDepartments(state)
+  departments: getDepartments(state),
+  carousels: productCarousels(state)
 });
 
 const mapDispatchToProps = dispatch =>
