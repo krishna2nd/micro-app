@@ -7,6 +7,8 @@ import { StyleSheet, Text, View, AppRegistry } from "react-native";
 import { NativeRouter, Route, Link } from "react-router-native";
 import MyApps from "./screens/MyApps";
 import { HomeScreen } from "./screens/Home";
+import { CategoriesScreen } from "./screens/Categories";
+
 import Profile from "./screens/Profile";
 import Cart from "./screens/Cart";
 import Notification from "./screens/Notification";
@@ -51,7 +53,7 @@ export default class App extends React.Component {
               <SamsHeader />
               <Content>
                 <Route exact path="/" component={HomeScreen} />
-                <Route path="/categories" component={Categories} />
+                <Route path="/categories" component={CategoriesScreen} />
                 <Route path="/myapps" component={MyApps} />
                 <Route path="/notification" component={Notification} />
                 <Route path="/profile" component={Profile} />

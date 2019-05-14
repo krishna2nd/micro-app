@@ -2,6 +2,10 @@ import get from "lodash/get";
 
 export const normalizeHomeLayout = payload => get(payload, "response", {});
 
+export const normalizeEndecaProducts = (products = []) => {
+  return extractInfoEndeca(products);
+};
+
 export const normalizeCarousels = (components = []) => {
   // console.log('home_categories',home_categories)
   components.forEach((component, index) => {
@@ -14,6 +18,8 @@ export const normalizeCarousels = (components = []) => {
   });
   return components;
 };
+
+
 export const extractInfoEndeca = (products = []) => {
   const value = field => field && field[0];
   const numFields = ["sku.finalPrice", "sku.lastPrice", "sku.weighable"];
@@ -31,17 +37,19 @@ export const extractInfoEndeca = (products = []) => {
         return;
       }
       let val = obj[key];
-      if (val.length > 1) {
+
+      if (val.length > 1 || !val) {
         return;
       }
       val = value(val);
+
       if (numFields.indexOf(key) >= 0) {
         val = Number(val || 0);
-      } else if (
-        val.toLowerCase() === "true" ||
-        val.toLowerCase() === "false"
-      ) {
-        val = Boolean(val || 0);
+      } else if (typeof val === "string") {
+        const tmpVal = val.toLowerCase();
+        if (tmpVal === "true" || tmpVal === "false") {
+          val = Boolean(val || 0);
+        }
       }
       obj[key] = val;
     });

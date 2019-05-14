@@ -1,7 +1,7 @@
 import { handleActions } from "redux-actions";
 import { LOCATION_CHANGE } from "react-router-redux";
 import { get } from "lodash";
-import { normalizeHomeLayout, normalizeCarousels } from "./home.normalizr";
+import { normalizeHomeLayout, normalizeCarousels, normalizeEndecaProducts } from "./home.normalizr";
 import {
   homeLayoutRequest,
   homeLayoutSuccess,
@@ -56,7 +56,7 @@ export const HomeReducer = handleActions(
     }),
     [homeRecomendedProductsSuccess]: (state, { payload: { response } }) => ({
       ...state,
-      ...response
+      recomendedProducts: normalizeEndecaProducts(response.mainArea[0] && response.mainArea[0].records || {records:[]})
     }),
     [homeCategoriesSuccess]: (state, { payload: { response } }) => ({
       ...state,

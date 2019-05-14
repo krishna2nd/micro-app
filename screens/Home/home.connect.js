@@ -7,7 +7,8 @@ import {
   getBanners,
   getCategories,
   getDepartments,
-  productCarousels
+  productCarousels,
+  getRecomendedProducts
 } from "./home.selectors";
 
 const mapStateToProps = state => ({
@@ -23,7 +24,8 @@ const mapStateToProps = state => ({
   categories: getCategories(state),
   banners: getBanners(state),
   departments: getDepartments(state),
-  carousels: productCarousels(state)
+  carousels: productCarousels(state),
+  recomendedProducts: getRecomendedProducts(state)
 });
 
 const mapDispatchToProps = dispatch =>
