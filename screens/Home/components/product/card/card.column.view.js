@@ -21,7 +21,7 @@ import {
   Grid
 } from "react-native-responsive-grid";
 import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
-import CardView from "./card.view";
+import ProductCardView from "./card.view";
 
 setBreakPoints({
   SMALL_Width: 414,
@@ -44,14 +44,14 @@ export default class CardColumView extends React.Component {
           }}
         >
           <Col size={48} offset={-1}>
-            <CardView
+            <ProductCardView
               product={products[index]}
               host={host}
               defaultImage={defaultImage}
             />
           </Col>
           <Col size={48} offset={1}>
-            <CardView
+            <ProductCardView
               product={products[index + 1]}
               host={host}
               defaultImage={defaultImage}

@@ -8,19 +8,30 @@ import {
   View,
   Dimensions,
   ActivityIndicator,
-  AppRegistry
+  AppRegistry,
+  Image
 } from "react-native";
 import { Avatar } from "react-native-elements";
-import { Button, Icon, Text } from "native-base";
-import { Card, Title, Paragraph } from "react-native-paper";
+import {
+  Button,
+  Text,
+  Card,
+  CardItem,
+  Body,
+  Right,
+  Left,
+  Icon
+} from "native-base";
+import { Title, Paragraph } from "react-native-paper";
 import {
   setBreakPoints,
   Row,
   Column as Col,
   Grid
 } from "react-native-responsive-grid";
-import { FontAwesome5 } from "react-native-vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
+import Price from "./price";
+import TouchableScale from "react-native-touchable-scale";
 
 setBreakPoints({
   SMALL_Width: 414,
@@ -28,7 +39,7 @@ setBreakPoints({
   LARGE_Width: 1024
 });
 
-const CardView = ({
+const ProductCardView = ({
   product: {
     deliveryEligible,
     deliveryInStock,
@@ -49,145 +60,143 @@ const CardView = ({
   defaultImage
 }) => {
   return (
-    <Card
-      title={productDisplayName}
-      key={productDisplayText}
-      style={{ padding: 20 }}
-    >
-      <Row>
-        <Col>{/* <FontAwesome5 name="store" ></FontAwesome5> */}</Col>
-        <Col offset={10}>
-          {/* <FontAwesome5 name="truck" ></FontAwesome5> */}
-        </Col>
-      </Row>
-
-      <View
+    <TouchableScale friction={90} tension={100} activeScale={0.7}>
+      <Card
         style={{
-          flex: 1,
-          justifyContent: "center",
-          alignContent: "center",
-          alignItems: "center"
+          padding: 2,
+          minHeight: 270
         }}
       >
-        <Avatar
-          size="xlarge"
-          source={{
-            uri: productSmallImageUrl || host + defaultImage
-          }}
-          PlaceholderContent={<ActivityIndicator />}
-        />
-      </View>
-      <Row
-        style={{
-          borderWidth: 0.5
-        }}
-      >
-        <Col
+        <CardItem
+          header
           style={{
-            borderColor: "#d6d7da",
-            justifyContent: "center",
-            alignContent: "center",
-            alignItems: "center"
+            zIndex: 10,
+            position: "absolute",
+            top: 5
           }}
         >
-          <Price price={skuFinalPrice} bold={true} primary={true} />
-        </Col>
-        <Col offset={10}>
-          <Price price={skuLastPrice} strike={true} secondary />
-        </Col>
-      </Row>
-      <Row
-        style={{
-          alignItems: "center",
-          borderWidth: 0.5,
-          borderColor: "#d6d7da"
-        }}
-      >
-        <Col>
-          <Text
+          <Left>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "flex-start",
+                flexDirection: "row"
+              }}
+            >
+              <MaterialCommunityIcons
+                name="truck-fast"
+                style={{
+                  fontSize: 18,
+                  marginRight: 2,
+                  color: deliveryEligible ? "#80bd01" : "red"
+                }}
+              />
+              <MaterialCommunityIcons
+                name="store"
+                style={{
+                  fontSize: 18,
+                  color: pickupEligible ? "#80bd01" : "red"
+                }}
+              />
+            </View>
+          </Left>
+        </CardItem>
+        <CardItem>
+          <Body>
+            <Image
+              source={{ uri: productSmallImageUrl || host + defaultImage }}
+              PlaceholderContent={<ActivityIndicator />}
+              style={{ height: 100, width: 100, flex: 1, alignSelf: "center" }}
+            />
+          </Body>
+        </CardItem>
+        <CardItem>
+          <Body>
+            <Row
+              style={{
+                alignItems: "center",
+                borderColor: "#d6d7da"
+              }}
+            >
+              <Col>
+                <Text
+                  numberOfLines={2}
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: 12,
+                    color: "#676767",
+                    textAlign: "center"
+                  }}
+                >
+                  {productDisplayText}
+                </Text>
+              </Col>
+            </Row>
+            <Row>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "space-around",
+                  alignContent: "center",
+                  alignItems: "center",
+                  flexDirection: "row"
+                }}
+              >
+                <Price price={skuFinalPrice} bold={true} primary={true} />
+                <Price price={skuLastPrice} strike={true} secondary />
+              </View>
+            </Row>
+          </Body>
+        </CardItem>
+        <CardItem
+          style={{
+            padding: 2
+          }}
+        >
+          <Body
             style={{
-              fontWeight: "bold",
-              color: "#454545",
-              textAlign: "center"
+              padding: 2
             }}
           >
-            {productDisplayName}
-          </Text>
-        </Col>
-      </Row>
-      <Row
-        style={{
-          alignItems: "center",
-          borderWidth: 0.5,
-          borderColor: "#d6d7da"
-        }}
-      >
-        <Col>
-          <Button
-            style={{
-              flex: 1,
-              alignSelf: "center"
-            }}
-          >
-            <Icon name="cart" iconRight />
-            <Text>Add</Text>
-          </Button>
-        </Col>
-      </Row>
-    </Card>
+            <Right>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "flex-end",
+                  flexDirection: "row"
+                }}
+              >
+                <Button
+                  style={{
+                    padding: 2,
+                    backgroundColor: "#0077c5",
+                    flex: 1,
+                    justifyContent: "center",
+                    alignContent: "center",
+                    alignItems: "center"
+                  }}
+                >
+                  <FontAwesome
+                    name="cart-plus"
+                    style={{
+                      color: "white",
+                      fontSize: 30,
+                      fontWeight: "bold"
+                    }}
+                  />
+                </Button>
+              </View>
+            </Right>
+          </Body>
+        </CardItem>
+      </Card>
+    </TouchableScale>
   );
 };
 
-const Price = ({
-  price,
-  strike = false,
-  bold = false,
-  primary = false,
-  secondary = false
-}) => {
-  const txtPrice = String(Number(price).toFixed(2));
-  const parts = txtPrice.split(".");
-  const style = strike
-    ? {
-        textDecorationLine: "line-through",
-        textDecorationStyle: "solid"
-      }
-    : {};
+export default ProductCardView;
 
-  if (bold) style.fontWeight = "bold";
-  if (primary) style.color = "green";
-  if (secondary) style.color = "grey";
-
-  return (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        alignSelf:"center",
-        alignContent: "center",
-        borderColor: "red",
-        borderWidth: 1
-      }}
-    >
-      <Text style={style}>{parts[0]}</Text>
-      <Text
-        style={{
-          ...style,
-          marginTop: -5,
-          fontSize: 12
-        }}
-      >
-        {parts[1]}
-      </Text>
-    </View>
-  );
-};
-
-export default CardView;
-
-AppRegistry.registerComponent("RRSamsApp", () => CardView);
+AppRegistry.registerComponent("RRSamsApp", () => ProductCardView);
 
 /*availableStores:
 Array[145]
