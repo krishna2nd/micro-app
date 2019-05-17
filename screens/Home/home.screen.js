@@ -25,7 +25,7 @@ const defaultImage = "/images/logo-fixed-2.png";
 
 const DeviceWidth = Dimensions.get("window").width;
 const BannerWidth = DeviceWidth;
-const BannerHeight = 320;
+const BannerHeight = 260;
 
 const RootDomain = "https://www.sams.com.mx";
 
