@@ -51,12 +51,12 @@ export class HomeScreen extends React.Component {
         /> */}
         <ScrollView contentContainerStyle={styles.contentContainer}>
           <Card>
-            {/* <Banner
+            <Banner
               style={styles.bannerContainer}
               width={BannerWidth}
               height={BannerHeight}
               banners={this.props.banners}
-            /> */}
+            />
             <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}
@@ -64,7 +64,7 @@ export class HomeScreen extends React.Component {
               <Menu categories={this.props.categories} />
             </ScrollView>
           </Card>
-          {/* <Divider />
+          <Divider />
           <Card>
             <Departments
               departments={this.props.departments}
@@ -72,7 +72,7 @@ export class HomeScreen extends React.Component {
               defaultImage={defaultImage}
               type="scroll"
             />
-          </Card> */}
+          </Card>
           <Divider />
           <Card>
             <View style={{ paddingTop: 20, paddingBottom: 20 }}>

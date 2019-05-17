@@ -64,7 +64,6 @@ const ProductCardView = ({
       <Card
         style={{
           padding: 2,
-          minHeight: 270
         }}
       >
         <CardItem
@@ -150,12 +149,14 @@ const ProductCardView = ({
         </CardItem>
         <CardItem
           style={{
-            padding: 2
+            padding: 2,
+            margin: 0
           }}
         >
           <Body
             style={{
-              padding: 2
+              padding: 2,
+              margin: 0
             }}
           >
             <Right>
