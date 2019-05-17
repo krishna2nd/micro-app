@@ -13,7 +13,8 @@ import {
 } from "./home.actions";
 
 const initialState = {
-  desktop: []
+  desktop: [],
+  bannerList: [],
   //   returnTo: HOME_PATH,
   //   sessionStatus: SESSION_STATUS.PENDING,
   //   isLoggedIn: false

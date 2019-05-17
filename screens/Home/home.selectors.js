@@ -1,7 +1,7 @@
 import get from "lodash";
 
 export const getBanners = ({ HomeReducer }) =>
-  HomeReducer.bannerList.map(banner => banner.bannerUrlPhone);
+  (HomeReducer.bannerList||[]).map(banner => banner.bannerUrlPhone);
 export const getCategories = ({ HomeReducer: { home_categories = [] } }) => {
   // console.log('home_categories',home_categories)
   return home_categories;
