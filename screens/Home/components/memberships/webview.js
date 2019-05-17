@@ -8,6 +8,7 @@ import {
   Image,
   Alert
 } from "react-native";
+//import Swiper from 'react-native-swiper';
 import device from "../../../../constants/Layout";
 import { AntDesign } from "react-native-vector-icons";
 
@@ -20,7 +21,6 @@ var images = [
 
 export default class MembershipModal extends Component {
   render() {
-    console.log("index", this.props.index);
     return (
       <View style={{ marginTop: 5 }}>
         <Modal
@@ -35,7 +35,14 @@ export default class MembershipModal extends Component {
                 this.props.onClose();
               }}
             >
-              <AntDesign name="close" />
+              <AntDesign
+                name="close"
+                style={{
+                  fontSize: 20,
+                  marginLeft: 5,
+                  fontWeight: "bold"
+                }}
+              />
             </TouchableHighlight>
             <View
               style={{
@@ -47,8 +54,8 @@ export default class MembershipModal extends Component {
               <Image
                 style={{
                   flex: 1,
-                  alignSelf: "center",
-                  width: device.width - 100,
+                  alignSelf: "stretch",
+                  width: device.width - 50,
                   height: device.height - 100
                 }}
                 source={images[this.props.index]}

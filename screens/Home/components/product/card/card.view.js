@@ -55,11 +55,9 @@ const CardView = ({
       style={{ padding: 20 }}
     >
       <Row>
-        <Col>
-          {/* <FontAwesome5 name="store" ></FontAwesome5> */}
-        </Col>
+        <Col>{/* <FontAwesome5 name="store" ></FontAwesome5> */}</Col>
         <Col offset={10}>
-        {/* <FontAwesome5 name="truck" ></FontAwesome5> */}
+          {/* <FontAwesome5 name="truck" ></FontAwesome5> */}
         </Col>
       </Row>
 
@@ -81,12 +79,17 @@ const CardView = ({
       </View>
       <Row
         style={{
-          alignItems: "center",
-          borderWidth: 0.5,
-          borderColor: "#d6d7da"
+          borderWidth: 0.5
         }}
       >
-        <Col>
+        <Col
+          style={{
+            borderColor: "#d6d7da",
+            justifyContent: "center",
+            alignContent: "center",
+            alignItems: "center"
+          }}
+        >
           <Price price={skuFinalPrice} bold={true} primary={true} />
         </Col>
         <Col offset={10}>
@@ -160,16 +163,20 @@ const Price = ({
       style={{
         flex: 1,
         flexDirection: "row",
-        justifyContent: "space-around",
-        alignItems: "center"
+        justifyContent: "center",
+        alignItems: "center",
+        alignSelf:"center",
+        alignContent: "center",
+        borderColor: "red",
+        borderWidth: 1
       }}
     >
       <Text style={style}>{parts[0]}</Text>
       <Text
         style={{
           ...style,
-          lineHeight: 15,
-          fontSize: 10
+          marginTop: -5,
+          fontSize: 12
         }}
       >
         {parts[1]}

@@ -22,11 +22,11 @@ class Memberships extends React.Component {
       index
     });
   }
-  hideModal() {
+  hideModal = () => {
     this.setState({
       modal: false
     });
-  }
+  };
   render() {
     return (
       <View>
