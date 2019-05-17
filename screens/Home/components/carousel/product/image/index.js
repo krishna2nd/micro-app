@@ -23,7 +23,13 @@ const CarouselProductImage = ({
   let productList = products;
   return (
     <View>
-      <Text style={{ fontSize: 20, fontWeight: "bold", padding: 20 }}>
+      <Text
+        style={{
+          fontFamily: "OpenSans-SemiBold",
+          fontSize: 16,
+          padding: 10
+        }}
+      >
         {title}
       </Text>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -33,18 +39,18 @@ const CarouselProductImage = ({
             flexDirection: "row",
             justifyContent: "space-around",
             alignContent: "center",
-            padding: 20
+            padding: 10
           }}
         >
           {productList.map((product, index) => {
             return (
               <Card
-                key={product['product.repositoryId']+ "-" + index}
-                style={{ marginLeft: 10 }}
+                key={product["product.repositoryId"] + "-" + index}
+                style={{ marginLeft: 6 }}
               >
                 <View
                   style={{
-                    padding: 10,
+                    padding: 8,
                     flex: 1,
                     justifyContent: "center",
                     alignContent: "center",

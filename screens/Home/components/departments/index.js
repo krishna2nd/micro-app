@@ -33,62 +33,80 @@ class Departments extends React.Component {
 }
 
 const DepartmentColumnView = ({ departments, host, defaultImage, columns }) => {
-  console.log(departments.length);
-  return <View>
-    <Text style={{ fontSize: 20, fontWeight: "bold", padding: 20 }}>
-      Categories list
-    </Text>
-    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-around",
-          alignContent: "center",
-          padding: 20
-        }}
-      >
-        {departments.map(department => {
-          return (
-            <Card
-              title={department.displayName}
-              key={department.displayName}
-              style={{ marginLeft: 10 }}
-            >
-              <View
+  return (
+    <View>
+      <Text style={{ fontSize: 20, fontWeight: "bold", padding: 20 }}>
+        Categories list
+      </Text>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-around",
+            alignContent: "center",
+            padding: 20
+          }}
+        >
+          {departments.map(department => {
+            return (
+              <Card
+                title={department.displayName}
+                key={department.displayName}
                 style={{
-                  padding: 10,
-                  flex: 1,
-                  justifyContent: "center",
-                  alignContent: "center",
-                  alignItems: "center"
+                  borderWidth: 0.5,
+                  borderColor: "#EFEFEF"
                 }}
               >
-                <Avatar
-                  size="large"
-                  source={{
-                    uri:
-                      host +
-                      get(
-                        department,
-                        "families[0].ThumbnailImageUrl",
-                        defaultImage
-                      )
+                <View
+                  style={{
+                    padding: 10,
+                    flex: 1,
+                    justifyContent: "center",
+                    alignContent: "center",
+                    alignItems: "center"
                   }}
-                  PlaceholderContent={<ActivityIndicator />}
-                />
-              </View>
-            </Card>
-          );
-        })}
-      </View>
-    </ScrollView>
-  </View>;
+                >
+                  <Avatar
+                    size="large"
+                    source={{
+                      uri:
+                        host +
+                        get(
+                          department,
+                          "families[0].ThumbnailImageUrl",
+                          defaultImage
+                        )
+                    }}
+                    PlaceholderContent={<ActivityIndicator />}
+                  />
+                  <Text
+                    style={{
+                      fontSize: 10,
+                      color: "#565656"
+                    }}
+                  >
+                    {department.displayName}
+                  </Text>
+                </View>
+              </Card>
+            );
+          })}
+        </View>
+      </ScrollView>
+    </View>
+  );
 };
 
 const DepartmentScrollView = ({ departments, host, defaultImage }) => (
   <View>
-    <Text style={{ fontSize: 20, fontWeight: "bold", padding: 20 }}>
+    <Text
+      style={{
+        fontFamily: "OpenSans-SemiBold",
+        fontSize: 16,
+        padding: 10
+      }}
+    >
       Shop by department
     </Text>
     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -98,15 +116,22 @@ const DepartmentScrollView = ({ departments, host, defaultImage }) => (
           flexDirection: "row",
           justifyContent: "space-around",
           alignContent: "center",
-          padding: 20
+          padding: 10
         }}
       >
         {departments.map(department => {
           return (
-            <Card key={department.displayName} style={{ marginLeft: 10 }}>
+            <Card
+              key={department.displayName}
+              style={{
+                height: 80,
+                width: 100,
+                marginLeft: 5,
+                paddingBottom: 5
+              }}
+            >
               <View
                 style={{
-                  padding: 10,
                   flex: 1,
                   justifyContent: "center",
                   alignContent: "center",
@@ -114,7 +139,7 @@ const DepartmentScrollView = ({ departments, host, defaultImage }) => (
                 }}
               >
                 <Avatar
-                  size="large"
+                  size="medium"
                   source={{
                     uri:
                       host +
@@ -127,6 +152,16 @@ const DepartmentScrollView = ({ departments, host, defaultImage }) => (
                   PlaceholderContent={<ActivityIndicator />}
                 />
               </View>
+              <Text
+                style={{
+                  fontSize: 10,
+                  paddingHorizontal: 8,
+                  textAlign: "center"
+                }}
+                numberOfLines={2}
+              >
+                {department.displayName}
+              </Text>
             </Card>
           );
         })}
@@ -137,4 +172,4 @@ const DepartmentScrollView = ({ departments, host, defaultImage }) => (
 
 export default Departments;
 
-AppRegistry.registerComponent('RRSamsApp', () => Departments)
+AppRegistry.registerComponent("RRSamsApp", () => Departments);

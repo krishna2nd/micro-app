@@ -76,8 +76,17 @@ export default class App extends React.Component {
       ]),
       Font.loadAsync({
         ...Icon.Ionicons.font,
-        Roboto: require("native-base/Fonts/Roboto.ttf"),
-        Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
+        "OpenSans-Bold": require("./assets/Open_Sans/OpenSans-Bold.ttf"),
+        "OpenSans-BoldItalic": require("./assets/Open_Sans/OpenSans-BoldItalic.ttf"),
+        "OpenSans-ExtraBold": require("./assets/Open_Sans/OpenSans-ExtraBold.ttf"),
+        "OpenSans-ExtraBoldItalic": require("./assets/Open_Sans/OpenSans-ExtraBoldItalic.ttf"),
+        "OpenSans-Italic": require("./assets/Open_Sans/OpenSans-Italic.ttf"),
+        "OpenSans-Light": require("./assets/Open_Sans/OpenSans-Light.ttf"),
+        "OpenSans-LightItalic": require("./assets/Open_Sans/OpenSans-LightItalic.ttf"),
+        "OpenSans-Regular": require("./assets/Open_Sans/OpenSans-Regular.ttf"),
+        "OpenSans-SemiBold": require("./assets/Open_Sans/OpenSans-SemiBold.ttf"),
+        "OpenSans-SemiBoldItalic": require("./assets/Open_Sans/OpenSans-SemiBoldItalic.ttf"),
+        'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf')
       })
     ]);
   };

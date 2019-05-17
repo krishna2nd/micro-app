@@ -35,7 +35,11 @@ class Memberships extends React.Component {
           onClose={this.hideModal}
           index={this.state.index}
         />
-        <Text style={{ fontSize: 20, fontWeight: "bold", padding: 10 }}>
+        <Text style={{
+          fontFamily: "OpenSans-SemiBold",
+          fontSize: 16,
+          padding: 10
+        }}>
           Membership
         </Text>
 
