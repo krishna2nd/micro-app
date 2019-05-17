@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { Avatar, Divider, Image, Header } from "react-native-elements";
 import { Button, Card, Title, Paragraph } from "react-native-paper";
+import Price from "./../../../product/card/price";
 
 const CarouselProductImage = ({
   isEndeca = true,
@@ -54,7 +55,8 @@ const CarouselProductImage = ({
                     flex: 1,
                     justifyContent: "center",
                     alignContent: "center",
-                    alignItems: "center"
+                    alignItems: "center",
+                    flexDirection: "column"
                   }}
                 >
                   <Avatar
@@ -65,6 +67,7 @@ const CarouselProductImage = ({
                     }}
                     PlaceholderContent={<ActivityIndicator />}
                   />
+                  <Price price={product['sku.finalPrice']} bold={true} primary={true} />
                 </View>
               </Card>
             );

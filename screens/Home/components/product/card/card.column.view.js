@@ -35,7 +35,8 @@ export default class CardColumView extends React.Component {
     const rows = [];
     for (let index = 0; index < products.length - 1; index += 2) {
       rows.push(
-        <Row key={index}
+        <Row
+          key={index}
           style={{
             flex: 1,
             flexDirection: "row",
@@ -61,15 +62,27 @@ export default class CardColumView extends React.Component {
       );
     }
     return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
-        {rows}
+      <View>
+        <Text
+          style={{
+            fontFamily: "OpenSans-SemiBold",
+            fontSize: 16,
+            padding: 10,
+            textAlign: "left"
+          }}
+        >
+          Top Trending products
+        </Text>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          {rows}
+        </View>
       </View>
     );
   }

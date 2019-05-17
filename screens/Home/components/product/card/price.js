@@ -20,7 +20,7 @@ const Price = ({
   if (bold) style.fontWeight = "bold";
   if (primary) style.color = "#83BA0F";
   if (secondary) style.color = "grey";
-
+  if (parts[1] === "00") parts[1] = undefined;
   return (
     <View
       style={{
@@ -30,7 +30,7 @@ const Price = ({
         alignItems: "center",
         alignSelf: "center",
         alignContent: "center",
-        borderColor: "red",
+        borderColor: "red"
       }}
     >
       <Text
@@ -44,15 +44,17 @@ const Price = ({
         $
       </Text>
       <Text style={style}>{parts[0]}</Text>
-      <Text
-        style={{
-          ...style,
-          marginTop: -5,
-          fontSize: 12
-        }}
-      >
-        {parts[1]}
-      </Text>
+      {parts[1] && (
+        <Text
+          style={{
+            ...style,
+            marginTop: -5,
+            fontSize: 12
+          }}
+        >
+          {parts[1]}
+        </Text>
+      )}
     </View>
   );
 };
