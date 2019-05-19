@@ -9,7 +9,7 @@ import {
   Alert
 } from "react-native";
 //import Swiper from 'react-native-swiper';
-import device from "../../../../constants/Layout";
+import device from "../../../constants/Layout";
 import { AntDesign } from "react-native-vector-icons";
 
 var images = [

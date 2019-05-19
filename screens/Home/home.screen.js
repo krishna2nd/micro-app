@@ -13,13 +13,13 @@ import { Avatar, Image, Header } from "react-native-elements";
 import { Button, Card, Title, Paragraph } from "react-native-paper";
 import { WebBrowser, Icon } from "expo";
 import { get } from "lodash";
-import Banner from "./components/banner";
-import Menu from "./components/menu";
-import Departments from "./components/departments";
-import Memberships from "./components/memberships";
+import Banner from "../components/banner";
+import Menu from "../components/menu";
+import Departments from "../components/departments";
+import Memberships from "../components/memberships";
 import Divider from "../../components/divider";
-import { CarouselProductImage } from "./components/carousel";
-import { CardColumView } from "./components/product";
+import { CarouselProductImage } from "../components/carousel";
+import { CardColumView } from "../components/product";
 
 const defaultImage = "/images/logo-fixed-2.png";
 
@@ -43,6 +43,7 @@ export class HomeScreen extends React.Component {
   render() {
     return (
       <View>
+        
         {/* <Header
           placement="left"
           leftComponent={{ icon: "menu", color: "#fff" }}

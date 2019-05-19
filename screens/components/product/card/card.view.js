@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from 'react-router';
 import { get } from "lodash";
 import {
   Platform,
@@ -39,7 +40,7 @@ setBreakPoints({
   LARGE_Width: 1024
 });
 
-const ProductCardView = ({
+const ProductCardView = withRouter(({
   product: {
     deliveryEligible,
     deliveryInStock,
@@ -57,10 +58,19 @@ const ProductCardView = ({
     skuWeighable
   },
   host,
-  defaultImage
+  defaultImage,
+  history
 }) => {
   return (
-    <TouchableScale friction={90} tension={100} activeScale={0.7}>
+    <TouchableScale friction={90} tension={100} activeScale={0.92}
+      onPress={()=>{
+        let skuId = productRepositoryId;
+        if (skuId[0] === '0') {
+          skuId = skuId.substring(1)
+        }
+        history.push(`/pdp/${skuId}`);
+      }}
+    >
       <Card
         style={{
           padding: 2,
@@ -193,7 +203,7 @@ const ProductCardView = ({
       </Card>
     </TouchableScale>
   );
-};
+});
 
 export default ProductCardView;
 

@@ -29,6 +29,7 @@ import {
 
 import { AppLoading, Font, Asset, Icon } from "expo";
 import { PersistGate } from "redux-persist/integration/react";
+import { PDPScreen } from "./screens/PDP";
 
 export default class App extends React.Component {
   state = {
@@ -59,6 +60,7 @@ export default class App extends React.Component {
                 <Route path="/profile" component={Profile} />
                 <Route path="/cart" component={Cart} />
                 <Route path="/campaigns/:name" component={Campaigns} />
+                <Route path="/pdp/:skuId" component={PDPScreen} />
               </Content>
               <SamsFooter />
             </Container>

@@ -17,7 +17,6 @@ import { Button, Card, Title, Paragraph } from "react-native-paper";
 class Departments extends React.Component {
   render() {
     const props = this.props;
-    console.log("Departments..", props.type);
     switch (props.type) {
       case "two-column":
         props.column = 2;

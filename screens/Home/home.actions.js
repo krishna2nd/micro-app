@@ -39,7 +39,7 @@ export const {
 } = createRequestActions("homeLayout", "home");
 
 export const fetchHomeLayout = url => (dispatch, getState) => {
-  console.log("HOME LAYOUT", url);
+  // console.log("HOME LAYOUT", url);
   dispatch(homeLayoutRequest());
   dispatch(
     fetchBackendUrl({

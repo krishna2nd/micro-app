@@ -1,5 +1,5 @@
 import React from "react";
-import DotCircle from "../../../../components/svg/dot-circle";
+import DotCircle from "../../../components/svg/dot-circle";
 import { View, Text, ScrollView } from "react-native";
 import { Image } from "react-native-elements";
 
