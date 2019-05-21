@@ -8,9 +8,10 @@ import { NativeRouter, Route, Link } from "react-router-native";
 import MyApps from "./screens/MyApps";
 import { HomeScreen } from "./screens/Home";
 import { CategoriesScreen } from "./screens/Categories";
+import {CartScreen} from "./screens/Cart";
 
 import Profile from "./screens/Profile";
-import Cart from "./screens/Cart";
+
 import Notification from "./screens/Notification";
 import Campaigns from "./screens/Campaigns";
 
@@ -58,7 +59,7 @@ export default class App extends React.Component {
                 <Route path="/myapps" component={MyApps} />
                 <Route path="/notification" component={Notification} />
                 <Route path="/profile" component={Profile} />
-                <Route path="/cart" component={Cart} />
+                <Route path="/cart" component={CartScreen} />
                 <Route path="/campaigns/:name" component={Campaigns} />
                 <Route path="/pdp/:skuId" component={PDPScreen} />
               </Content>

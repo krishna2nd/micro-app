@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
   Container,
   Header,
@@ -11,33 +12,81 @@ import {
   Title,
   Item,
   Input,
-  Text
+  Text,
+  Badge
 } from "native-base";
+import { Image, StyleSheet, View } from "react-native";
 import { Platform } from "expo-core";
+import { withRouter } from "react-router";
 import { Link } from "react-router-native";
 import { SearchBar } from "react-native-elements";
+import { cartTotals } from "../../screens/Cart/cart.selectors"
 
 const iOS = Platform.OS === "ios";
-
-export default class SamsHeader extends Component {
+const CartHeader = () => (
+  <Header>
+    <Left>
+      <Button transparent>
+        <Link to="/">
+          <Icon name="home" style={styles.icon} />
+        </Link>
+      </Button>
+    </Left>
+    <Body>
+      <Title>Checkout</Title>
+    </Body>
+  </Header>
+);
+class SamsHeader extends Component {
   render() {
+    const { location, totalCount = 0 } = this.props;
+    if (location.pathname === "/cart") return <CartHeader />;
     return (
-      <Header>
+      <Header
+        style={{
+          backgroundColor: "white"
+        }}
+      >
         <Left>
           <Button transparent>
-            <Icon name="menu" />
+            <Icon name="menu" style={styles.icon} />
           </Button>
         </Left>
         <Body>
-          <Title>Header</Title>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              alignContent: "center"
+            }}
+          >
+            <Image
+              source={require("../../assets/sams-logo.png")}
+              style={{ width: 120, alignSelf: "stretch" }}
+            />
+          </View>
         </Body>
         <Right>
           <Button transparent>
-            <Icon name="search" />
+            <Icon name="search" style={styles.icon} />
           </Button>
           <Button transparent>
             <Link to="/cart">
-              <Icon name="cart" />
+              <View>
+                <Badge
+                  success
+                  style={{
+                    position: "absolute",
+                    marginTop: -10,
+                    right: -10,
+                    zIndex: 1
+                  }}
+                >
+                  <Text style={{ fontSize: 10 }}>{totalCount}</Text>
+                </Badge>
+                <Icon name="cart" style={{ ...styles.icon }} />
+              </View>
             </Link>
           </Button>
         </Right>
@@ -46,10 +95,19 @@ export default class SamsHeader extends Component {
   }
 }
 
-// {/* <SearchBar
-//           placeholder="Type Here..."
-//           onChangeText={() => {}}
-//           value={""}
-//           platform="default"
-//           lightTheme={true}
-//         /> */}
+const styles = StyleSheet.create({
+  icon: {
+    color: "#0463ac",
+    fontSize: 35
+  }
+});
+
+const mapStateToProps = state => ({
+  ...cartTotals(state)
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(withRouter(SamsHeader));
+

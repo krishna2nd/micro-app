@@ -1,5 +1,7 @@
 import React from "react";
-import { withRouter } from 'react-router';
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { withRouter } from "react-router";
 import { get } from "lodash";
 import {
   Platform,
@@ -33,6 +35,7 @@ import {
 import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
 import Price from "./price";
 import TouchableScale from "react-native-touchable-scale";
+import { addToCart } from "../../../Cart/cart.actions";
 
 setBreakPoints({
   SMALL_Width: 414,
@@ -40,170 +43,210 @@ setBreakPoints({
   LARGE_Width: 1024
 });
 
-const ProductCardView = withRouter(({
-  product: {
-    deliveryEligible,
-    deliveryInStock,
-    pickupEligible,
-    pickupInStock,
-    productDepartment,
-    productDisplayName,
-    productDisplayText,
-    productSmallImageUrl,
-    productRepositoryId,
-    skuFinalPrice,
-    skuLastPrice,
-    skuRepositoryId,
-    skuUnitOfMeasure,
-    skuWeighable
-  },
-  host,
-  defaultImage,
-  history
-}) => {
-  return (
-    <TouchableScale friction={90} tension={100} activeScale={0.92}
-      onPress={()=>{
+const mapDispatchToProps = dispatch => {
+  return {
+    dispatch,
+    ...bindActionCreators({ addToCart }, dispatch)
+  }
+};
+
+const ProductCardView = connect(
+  null,
+  mapDispatchToProps
+)(
+  withRouter(
+    ({
+      product: {
+        deliveryEligible,
+        deliveryInStock,
+        pickupEligible,
+        pickupInStock,
+        productDepartment,
+        productDisplayName,
+        productDisplayText,
+        productSmallImageUrl,
+        productRepositoryId,
+        skuFinalPrice,
+        skuLastPrice,
+        skuRepositoryId,
+        skuUnitOfMeasure,
+        skuWeighable
+      },
+      host,
+      defaultImage,
+      history,
+      dispatch,
+      addToCart: actionAddToCart
+    }) => {
+      // console.log('dispatch', dispatch, actionAddToCart);
+      const stripSku = productRepositoryId => {
         let skuId = productRepositoryId;
-        if (skuId[0] === '0') {
-          skuId = skuId.substring(1)
+        if (skuId[0] === "0") {
+          skuId = skuId.substring(1);
         }
-        history.push(`/pdp/${skuId}`);
-      }}
-    >
-      <Card
-        style={{
-          padding: 2,
-        }}
-      >
-        <CardItem
-          header
-          style={{
-            zIndex: 10,
-            position: "absolute",
-            top: 5
+        return skuId;
+      };
+      return (
+        <TouchableScale
+          friction={90}
+          tension={100}
+          activeScale={0.92}
+          onPress={() => {
+            let skuId = stripSku(productRepositoryId);
+            history.push(`/pdp/${skuId}`);
           }}
         >
-          <Left>
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "flex-start",
-                flexDirection: "row"
-              }}
-            >
-              <MaterialCommunityIcons
-                name="truck-fast"
-                style={{
-                  fontSize: 18,
-                  marginRight: 2,
-                  color: deliveryEligible ? "#80bd01" : "red"
-                }}
-              />
-              <MaterialCommunityIcons
-                name="store"
-                style={{
-                  fontSize: 18,
-                  color: pickupEligible ? "#80bd01" : "red"
-                }}
-              />
-            </View>
-          </Left>
-        </CardItem>
-        <CardItem>
-          <Body>
-            <Image
-              source={{ uri: productSmallImageUrl || host + defaultImage }}
-              PlaceholderContent={<ActivityIndicator />}
-              style={{ height: 100, width: 100, flex: 1, alignSelf: "center" }}
-            />
-          </Body>
-        </CardItem>
-        <CardItem>
-          <Body>
-            <Row
-              style={{
-                alignItems: "center",
-                borderColor: "#d6d7da"
-              }}
-            >
-              <Col>
-                <Text
-                  numberOfLines={2}
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: 12,
-                    color: "#676767",
-                    textAlign: "center"
-                  }}
-                >
-                  {productDisplayText}
-                </Text>
-              </Col>
-            </Row>
-            <Row>
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: "space-around",
-                  alignContent: "center",
-                  alignItems: "center",
-                  flexDirection: "row"
-                }}
-              >
-                <Price price={skuFinalPrice} bold={true} primary={true} />
-                <Price price={skuLastPrice} strike={true} secondary />
-              </View>
-            </Row>
-          </Body>
-        </CardItem>
-        <CardItem
-          style={{
-            padding: 2,
-            margin: 0
-          }}
-        >
-          <Body
+          <Card
             style={{
-              padding: 2,
-              margin: 0
+              padding: 2
             }}
           >
-            <Right>
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: "flex-end",
-                  flexDirection: "row"
-                }}
-              >
-                <Button
+            <CardItem
+              header
+              style={{
+                zIndex: 10,
+                position: "absolute",
+                top: 5
+              }}
+            >
+              <Left>
+                <View
                   style={{
-                    padding: 2,
-                    backgroundColor: "#0077c5",
                     flex: 1,
-                    justifyContent: "center",
-                    alignContent: "center",
-                    alignItems: "center"
+                    justifyContent: "flex-start",
+                    flexDirection: "row"
                   }}
                 >
-                  <FontAwesome
-                    name="cart-plus"
+                  <MaterialCommunityIcons
+                    name="truck-fast"
                     style={{
-                      color: "white",
-                      fontSize: 30,
-                      fontWeight: "bold"
+                      fontSize: 18,
+                      marginRight: 2,
+                      color: deliveryEligible ? "#80bd01" : "red"
                     }}
                   />
-                </Button>
-              </View>
-            </Right>
-          </Body>
-        </CardItem>
-      </Card>
-    </TouchableScale>
-  );
-});
+                  <MaterialCommunityIcons
+                    name="store"
+                    style={{
+                      fontSize: 18,
+                      color: pickupEligible ? "#80bd01" : "red"
+                    }}
+                  />
+                </View>
+              </Left>
+            </CardItem>
+            <CardItem>
+              <Body>
+                <Image
+                  source={{ uri: productSmallImageUrl || host + defaultImage }}
+                  PlaceholderContent={<ActivityIndicator />}
+                  style={{
+                    height: 100,
+                    width: 100,
+                    flex: 1,
+                    alignSelf: "center"
+                  }}
+                />
+              </Body>
+            </CardItem>
+            <CardItem>
+              <Body>
+                <Row
+                  style={{
+                    alignItems: "center",
+                    borderColor: "#d6d7da"
+                  }}
+                >
+                  <Col>
+                    <Text
+                      numberOfLines={2}
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: 12,
+                        color: "#676767",
+                        textAlign: "center"
+                      }}
+                    >
+                      {productDisplayText}
+                    </Text>
+                  </Col>
+                </Row>
+                <Row>
+                  <View
+                    style={{
+                      flex: 1,
+                      justifyContent: "space-around",
+                      alignContent: "center",
+                      alignItems: "center",
+                      flexDirection: "row"
+                    }}
+                  >
+                    <Price price={skuFinalPrice} bold={true} primary={true} />
+                    <Price price={skuLastPrice} strike={true} secondary />
+                  </View>
+                </Row>
+              </Body>
+            </CardItem>
+            <CardItem
+              style={{
+                padding: 2,
+                margin: 0
+              }}
+            >
+              <Body
+                style={{
+                  padding: 2,
+                  margin: 0
+                }}
+              >
+                <Right>
+                  <View
+                    style={{
+                      flex: 1,
+                      justifyContent: "flex-end",
+                      flexDirection: "row"
+                    }}
+                  >
+                    <Button
+                      style={{
+                        padding: 2,
+                        backgroundColor: "#0077c5",
+                        flex: 1,
+                        justifyContent: "center",
+                        alignContent: "center",
+                        alignItems: "center"
+                      }}
+                      onPress={() => {
+                        actionAddToCart({
+                          title: productDisplayText,
+                          image: productSmallImageUrl,
+                          id: stripSku(productRepositoryId),
+                          delivery: deliveryEligible,
+                          pickup: pickupEligible,
+                          price: skuFinalPrice,
+                          skuLastPrice
+                        });
+                      }}
+                    >
+                      <FontAwesome
+                        name="cart-plus"
+                        style={{
+                          color: "white",
+                          fontSize: 30,
+                          fontWeight: "bold"
+                        }}
+                      />
+                    </Button>
+                  </View>
+                </Right>
+              </Body>
+            </CardItem>
+          </Card>
+        </TouchableScale>
+      );
+    }
+  )
+);
 
 export default ProductCardView;
 

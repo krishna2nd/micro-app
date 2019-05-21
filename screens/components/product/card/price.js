@@ -6,7 +6,8 @@ const Price = ({
   strike = false,
   bold = false,
   primary = false,
-  secondary = false
+  secondary = false,
+  style: userStyle = {}
 }) => {
   const txtPrice = String(Number(price).toFixed(2));
   const parts = txtPrice.split(".");
@@ -38,18 +39,27 @@ const Price = ({
           ...style,
           fontWeight: "bold",
           fontSize: 15,
-          paddingRight: 2
+          paddingRight: 2,
+          ...userStyle
         }}
       >
         $
       </Text>
-      <Text style={style}>{parts[0]}</Text>
+      <Text
+        style={{
+          ...style,
+          ...userStyle
+        }}
+      >
+        {parts[0]}
+      </Text>
       {parts[1] && (
         <Text
           style={{
             ...style,
             marginTop: -5,
-            fontSize: 12
+            fontSize: userStyle.fontSize ? (userStyle.fontSize - (userStyle.fontSize/5)) : 12,
+            ...userStyle
           }}
         >
           {parts[1]}
