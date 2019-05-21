@@ -56,7 +56,7 @@ export default class App extends React.Component {
               <StatusBar hidden={true} />
               <SamsHeader />
               <Content>
-                <Route exact path="/home" component={HomeScreen} />
+                <Route exact path="/" component={HomeScreen} />
                 <Route path="/categories" component={CategoriesScreen} />
                 <Route path="/myapps" component={MyApps} />
                 <Route path="/notification" component={Notification} />
