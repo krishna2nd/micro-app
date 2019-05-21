@@ -19,7 +19,8 @@ import {
   Left,
   Body,
   Right,
-  Button
+  Button,
+  Badge
 } from "native-base";
 
 export class CartScreen extends React.Component {
@@ -68,7 +69,10 @@ export class CartScreen extends React.Component {
                     </View>
                   </Body>
                   <Right>
-                    <Price price={item.price} bold={true} primary={true} />
+                    <Badge info>
+                      <Text>{item.count}</Text>
+                    </Badge>
+                    <Price price={item.price * item.count} bold={true} primary={true} />
                   </Right>
                 </ListItem>
               ))}
@@ -114,16 +118,16 @@ export class CartScreen extends React.Component {
                 </View>
               </View>
 
-              <View style={{ flex: 1 }}>
+              <View style={{ flex: 1, marginRight: 15 }}>
                 <View style={styles.row}>
-                  <Text>Sub total</Text>
-                  <View style={{ alignSelf: "flex-end" }}>
+                  <Text style={{flex: 1}} >Sub total</Text>
+                  <View style={{ alignSelf: "flex-start" }}>
                     <Price price={subTotal} bold={true} primary={true} />
                   </View>
                 </View>
                 <View style={styles.row}>
-                  <Text>Discount</Text>
-                  <View style={{ alignSelf: "flex-end" }}>
+                  <Text style={{flex: 1}} >Discount</Text>
+                  <View style={{ alignSelf: "flex-start" }}>
                     <Price price={discount} bold={true} primary={true} />
                   </View>
                 </View>
@@ -131,11 +135,13 @@ export class CartScreen extends React.Component {
                   style={{
                     ...styles.row,
                     borderTopColor: "#DEDEDE",
-                    borderTopWidth: 0.5
+                    borderTopWidth: 0.5,
+                    paddingTop: 5,
+                    marginTop: 5
                   }}
                 >
-                  <Text>Total</Text>
-                  <View style={{ alignSelf: "flex-end" }}>
+                  <Text style={{ flex: 1, fontWeight: "bold" }}>Total</Text>
+                  <View style={{ alignSelf: "flex-start" }}>
                     <Price price={total} bold={true} primary={true} />
                   </View>
                 </View>
@@ -152,6 +158,8 @@ const styles = StyleSheet.create({
   row: {
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    alignContent: "flex-start"
   }
 });

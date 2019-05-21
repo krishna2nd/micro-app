@@ -5,7 +5,7 @@ export const cartTotals = ({ CartReducer: { list } }) => {
   let subTotal = 0;
   const uniqItems = {}
   list.forEach(item => {
-    subTotal += (item.price || 0);
+    subTotal += ((Number(item.price) * item.count) || 0);
     count = uniqItems[item.id];
     if (!count) {
       count = 1

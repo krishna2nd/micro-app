@@ -33,11 +33,18 @@ export const CartReducer = handleActions(
       ...payload.request,
       loading: true
     }),
-    [addCartSuccess]: (state, {payload: {response}}) => {
-      console.log("Adding cart", response);
+    [addCartSuccess]: (state, { payload: { response } }) => {
+      const product = {
+        ...response,
+        count: 1
+      };
+      const list = state.list;
+      let stateProduct = list.find(item => item.id === product.id);
+      if (!stateProduct) list.push(product);
+      else stateProduct.count += 1;
       return {
         ...state,
-        list: [...(state.list), response]
+        list
       };
     },
     [removeCartSuccess]: (state, payload) => ({

@@ -13,18 +13,20 @@ import {
   Item,
   Input,
   Text,
-  Badge
+  Badge,
+  Card,
+  CardItem
 } from "native-base";
 import { Image, StyleSheet, View } from "react-native";
 import { Platform } from "expo-core";
 import { withRouter } from "react-router";
 import { Link } from "react-router-native";
 import { SearchBar } from "react-native-elements";
-import { cartTotals } from "../../screens/Cart/cart.selectors"
+import { cartTotals } from "../../screens/Cart/cart.selectors";
 
 const iOS = Platform.OS === "ios";
 const CartHeader = () => (
-  <Header>
+  <Header style={styles.header}>
     <Left>
       <Button transparent>
         <Link to="/">
@@ -33,7 +35,7 @@ const CartHeader = () => (
       </Button>
     </Left>
     <Body>
-      <Title>Checkout</Title>
+      <Title style={{ color: "#898989" }}>Checkout</Title>
     </Body>
   </Header>
 );
@@ -42,11 +44,7 @@ class SamsHeader extends Component {
     const { location, totalCount = 0 } = this.props;
     if (location.pathname === "/cart") return <CartHeader />;
     return (
-      <Header
-        style={{
-          backgroundColor: "white"
-        }}
-      >
+      <Header style={styles.header}>
         <Left>
           <Button transparent>
             <Icon name="menu" style={styles.icon} />
@@ -74,16 +72,8 @@ class SamsHeader extends Component {
           <Button transparent>
             <Link to="/cart">
               <View>
-                <Badge
-                  success
-                  style={{
-                    position: "absolute",
-                    marginTop: -10,
-                    right: -10,
-                    zIndex: 1
-                  }}
-                >
-                  <Text style={{ fontSize: 10 }}>{totalCount}</Text>
+                <Badge success style={styles.badge}>
+                  <Text style={{ color: "white" }}>{totalCount}</Text>
                 </Badge>
                 <Icon name="cart" style={{ ...styles.icon }} />
               </View>
@@ -96,9 +86,21 @@ class SamsHeader extends Component {
 }
 
 const styles = StyleSheet.create({
+  header: {
+    backgroundColor: "white"
+  },
   icon: {
     color: "#0463ac",
     fontSize: 35
+  },
+  badge: {
+    position: "absolute",
+    marginTop: -10,
+    right: -10,
+    zIndex: 1,
+    padding: 0,
+    color: "white",
+    backgroundColor: "green"
   }
 });
 
@@ -110,4 +112,3 @@ export default connect(
   mapStateToProps,
   null
 )(withRouter(SamsHeader));
-

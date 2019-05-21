@@ -7,11 +7,12 @@ import {
   } from "native-base";
 
 const SamsFooter = ({ location, props }) => {
-  console.log(location);
   if (location.pathname === "/myapps") return null;
-  if (location.pathname === "/cart") return <CartFooter ></CartFooter>;
+  if (location.pathname === "/cart" || location.pathname === "/payment") return <CartFooter ></CartFooter>;
   return (
-    <Footer>
+    <Footer style={{
+      backgroundColor: "white"
+    }} >
       <NavigationTabBar />
     </Footer>
   );

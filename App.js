@@ -3,13 +3,14 @@ import { Provider } from "react-redux";
 import { ConnectedRouter } from "connected-react-router";
 import { store, history, persistor } from "./state";
 
-import { StyleSheet, Text, View, AppRegistry } from "react-native";
+import { StyleSheet, Text, View, AppRegistry, StatusBar } from "react-native";
 import { NativeRouter, Route, Link } from "react-router-native";
 import MyApps from "./screens/MyApps";
 import { HomeScreen } from "./screens/Home";
 import { CategoriesScreen } from "./screens/Categories";
-import {CartScreen} from "./screens/Cart";
-
+import { CartScreen } from "./screens/Cart";
+import { PaymentScreen } from "./screens/Payment";
+import { ConfirmScreen } from './screens/Confirm';
 import Profile from "./screens/Profile";
 
 import Notification from "./screens/Notification";
@@ -52,9 +53,10 @@ export default class App extends React.Component {
           <ConnectedRouter history={history} />
           <NativeRouter>
             <Container>
+              <StatusBar hidden={true} />
               <SamsHeader />
               <Content>
-                <Route exact path="/" component={HomeScreen} />
+                <Route exact path="/home" component={HomeScreen} />
                 <Route path="/categories" component={CategoriesScreen} />
                 <Route path="/myapps" component={MyApps} />
                 <Route path="/notification" component={Notification} />
@@ -62,6 +64,8 @@ export default class App extends React.Component {
                 <Route path="/cart" component={CartScreen} />
                 <Route path="/campaigns/:name" component={Campaigns} />
                 <Route path="/pdp/:skuId" component={PDPScreen} />
+                <Route path="/payment" component={PaymentScreen} />
+                <Route path="/confirm" component={ConfirmScreen} />
               </Content>
               <SamsFooter />
             </Container>
@@ -89,7 +93,7 @@ export default class App extends React.Component {
         "OpenSans-Regular": require("./assets/Open_Sans/OpenSans-Regular.ttf"),
         "OpenSans-SemiBold": require("./assets/Open_Sans/OpenSans-SemiBold.ttf"),
         "OpenSans-SemiBoldItalic": require("./assets/Open_Sans/OpenSans-SemiBoldItalic.ttf"),
-        'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf')
+        Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
       })
     ]);
   };

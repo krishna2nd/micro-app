@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router";
 import { Animated, Easing, View } from "react-native";
 import LottieView from "lottie-react-native";
 import device from "../../constants/Layout";
@@ -27,7 +28,7 @@ import { userCart, cartTotals } from "./cart.selectors";
 
 export class CartFooterScreen extends React.Component {
   render() {
-    const { list, subTotal } = this.props;
+    const { list, subTotal, total , location} = this.props;
     return (
       <Footer>
         <FooterTab
@@ -36,23 +37,34 @@ export class CartFooterScreen extends React.Component {
             backgroundColor: "white",
             justifyContent: "center",
             flexDirection: "row",
-            padding: 5,
             paddingHorizontal: 30
           }}
         >
           <Button
-            badge
-            vertical
+            onPress={() => {
+              if (location.pathname === '/payment') {
+                this.props.history.push("/confirm");
+              }
+              else this.props.history.push("/payment");
+            }}
             style={{
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
               alignContent: "center",
-              flexDirection: "row",
-              padding: 15,
-              backgroundColor: "#80bd01"
+              flexDirection: "column",
+              backgroundColor: "#80bd01",
+              padding: 15
             }}
           >
+            <Price
+              price={total}
+              primary={true}
+              bold={true}
+              style={{
+                color: "white"
+              }}
+            />
             <Text
               style={{
                 fontSize: 16,
@@ -62,15 +74,6 @@ export class CartFooterScreen extends React.Component {
             >
               Proceed to payment
             </Text>
-            <Price
-              price={subTotal}
-              primary={true}
-              bold={true}
-              style={{
-                fontSize: 16,
-                color: "white"
-              }}
-            />
           </Button>
         </FooterTab>
       </Footer>
@@ -87,7 +90,7 @@ const mapDispatchToProps = dispatch => ({ dispatch });
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CartFooterScreen);
+)(withRouter(CartFooterScreen));
 
 // <Card
 //         style={{

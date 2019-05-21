@@ -22,7 +22,8 @@ const NavigationTabBar = ({ location, props }) => {
 const styles = StyleSheet.create({
   nav: {
     flexDirection: "row",
-    justifyContent: "space-around"
+    justifyContent: "space-around",
+    backgroundColor: "white"
   },
   navItem: {
     flex: 1,
