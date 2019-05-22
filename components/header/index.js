@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     color: "#0463ac",
-    fontSize: 35
+    fontSize: 28
   },
   badge: {
     position: "absolute",

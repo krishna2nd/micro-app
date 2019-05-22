@@ -70,9 +70,9 @@ export class CartScreen extends React.Component {
                   </Body>
                   <Right>
                     <Badge info>
-                      <Text>{item.count}</Text>
+                      <Text>{item.count|| 1}</Text>
                     </Badge>
-                    <Price price={item.price * item.count} bold={true} primary={true} />
+                    <Price price={item.price * (item.count || 1)} bold={true} primary={true} />
                   </Right>
                 </ListItem>
               ))}
