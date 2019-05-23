@@ -1,5 +1,6 @@
 import React from "react";
 import { get } from "lodash";
+import device from "../../../constants/Layout";
 import {
   Platform,
   ScrollView,
@@ -13,6 +14,19 @@ import {
 } from "react-native";
 import { Avatar, Divider, Image, Header } from "react-native-elements";
 import { Button, Card, Title, Paragraph } from "react-native-paper";
+import {
+  setBreakPoints,
+  Row,
+  Column as Col,
+  Grid
+} from "react-native-responsive-grid";
+import TouchableScale from "react-native-touchable-scale";
+
+setBreakPoints({
+  SMALL_Width: 414,
+  MEDIUM_Width: 600,
+  LARGE_Width: 1024
+});
 
 class Departments extends React.Component {
   render() {
@@ -31,7 +45,74 @@ class Departments extends React.Component {
   }
 }
 
-const DepartmentColumnView = ({ departments, host, defaultImage, columns }) => {
+const DepartmentColumnView = ({
+  departments = [],
+  host,
+  defaultImage,
+  columns
+}) => {
+  const departmentCard = department => {
+    return (
+      <TouchableScale
+        friction={90}
+        tension={100}
+        activeScale={0.92}
+      >
+        <Card
+          title={department.displayName}
+          key={department.displayName}
+          style={{
+            borderWidth: 0.5,
+            margin: 4,
+            borderColor: "#EFEFEF"
+          }}
+        >
+          <View
+            style={{
+              padding: 10,
+              flex: 1,
+              justifyContent: "center",
+              alignContent: "center",
+              alignItems: "center",
+              minHeight: 120
+            }}
+          >
+            <Avatar
+              size="large"
+              source={{
+                uri:
+                  host +
+                  get(department, "families[0].ThumbnailImageUrl", defaultImage)
+              }}
+              PlaceholderContent={<ActivityIndicator />}
+            />
+            <Text
+              lineBreakMode="clip"
+              numberOfLines={2}
+              style={{
+                fontSize: 10,
+                color: "#565656"
+              }}
+            >
+              {department.displayName}
+            </Text>
+          </View>
+        </Card>
+      </TouchableScale>
+    );
+  };
+  const rows = [];
+  let index = 0;
+  for (; index < departments.length - 2; index += 3) {
+    rows.push(
+      <Row key={index}>
+        <Col size={33}>{departmentCard(departments[index])}</Col>
+        <Col size={33}>{departmentCard(departments[index + 1])}</Col>
+        <Col size={33}>{departmentCard(departments[index + 2])}</Col>
+      </Row>
+    );
+  }
+
   return (
     <View>
       <Text style={{ fontSize: 20, fontWeight: "bold", padding: 20 }}>
@@ -40,57 +121,15 @@ const DepartmentColumnView = ({ departments, host, defaultImage, columns }) => {
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         <View
           style={{
-            display: "flex",
+            flex: 1,
             flexDirection: "column",
-            justifyContent: "space-around",
+            justifyContent: "center",
             alignContent: "center",
-            padding: 20
+            alignItems: "center",
+            width: device.width
           }}
         >
-          {departments.map(department => {
-            return (
-              <Card
-                title={department.displayName}
-                key={department.displayName}
-                style={{
-                  borderWidth: 0.5,
-                  borderColor: "#EFEFEF"
-                }}
-              >
-                <View
-                  style={{
-                    padding: 10,
-                    flex: 1,
-                    justifyContent: "center",
-                    alignContent: "center",
-                    alignItems: "center"
-                  }}
-                >
-                  <Avatar
-                    size="large"
-                    source={{
-                      uri:
-                        host +
-                        get(
-                          department,
-                          "families[0].ThumbnailImageUrl",
-                          defaultImage
-                        )
-                    }}
-                    PlaceholderContent={<ActivityIndicator />}
-                  />
-                  <Text
-                    style={{
-                      fontSize: 10,
-                      color: "#565656"
-                    }}
-                  >
-                    {department.displayName}
-                  </Text>
-                </View>
-              </Card>
-            );
-          })}
+          {rows}
         </View>
       </ScrollView>
     </View>
@@ -170,5 +209,17 @@ const DepartmentScrollView = ({ departments, host, defaultImage }) => (
 );
 
 export default Departments;
+
+const styles = StyleSheet.create({
+  row: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    width: device.width
+  }
+});
 
 AppRegistry.registerComponent("RRSamsApp", () => Departments);

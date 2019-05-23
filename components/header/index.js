@@ -73,7 +73,7 @@ class SamsHeader extends Component {
             <Link to="/cart">
               <View>
                 <Badge success style={styles.badge}>
-                  <Text style={{ color: "white" }}>{totalCount}</Text>
+                  <Text style={{ color: "white", fontSize: 10 }}>{totalCount}</Text>
                 </Badge>
                 <Icon name="cart" style={{ ...styles.icon }} />
               </View>
@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
   },
   badge: {
     position: "absolute",
-    marginTop: -10,
-    right: -10,
+    marginTop: -15,
+    right: -5,
     zIndex: 1,
     padding: 0,
     color: "white",

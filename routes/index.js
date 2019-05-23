@@ -13,10 +13,10 @@ const routes = [
     to: "/notification",
     icon: Platform.OS === "ios" ? `ios-notifications` : "md-notifications"
   },
-  {
-    to: "/myapps",
-    icon: Platform.OS === "ios" ? "ios-apps" : "md-apps"
-  },
+  // {
+  //   to: "/myapps",
+  //   icon: Platform.OS === "ios" ? "ios-apps" : "md-apps"
+  // },
   {
     to: "/profile",
     icon: Platform.OS === "ios" ? "ios-contact" : "md-contact"

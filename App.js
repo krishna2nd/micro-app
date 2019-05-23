@@ -11,7 +11,7 @@ import { CategoriesScreen } from "./screens/Categories";
 import { CartScreen } from "./screens/Cart";
 import { PaymentScreen } from "./screens/Payment";
 import { ConfirmScreen } from './screens/Confirm';
-import Profile from "./screens/Profile";
+import ProfileScreen from "./screens/Profile";
 
 import Notification from "./screens/Notification";
 import Campaigns from "./screens/Campaigns";
@@ -60,7 +60,7 @@ export default class App extends React.Component {
                 <Route path="/categories" component={CategoriesScreen} />
                 <Route path="/myapps" component={MyApps} />
                 <Route path="/notification" component={Notification} />
-                <Route path="/profile" component={Profile} />
+                <Route path="/profile" component={ProfileScreen} />
                 <Route path="/cart" component={CartScreen} />
                 <Route path="/campaigns/:name" component={Campaigns} />
                 <Route path="/pdp/:skuId" component={PDPScreen} />
