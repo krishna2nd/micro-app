@@ -1,5 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import { get } from "lodash";
 import {
   Platform,
@@ -38,6 +40,7 @@ import TouchableScale from "react-native-touchable-scale";
 import device from "../../../../constants/Layout";
 import Gallery from "../../../components/carousel/gallery";
 import CarousalView from "../../../components/carousel/gallery/sliderentry";
+import { addToCart } from "../../../Cart/cart.actions";
 
 setBreakPoints({
   SMALL_Width: 414,
@@ -45,200 +48,236 @@ setBreakPoints({
   LARGE_Width: 1024
 });
 
-const PDPCardView = withRouter(({ product, host, defaultImage, history }) => {
-  const {
-    DeliveryEligible,
-    DeliveryInStock,
-    PickupEligible,
-    PickupInStock,
-    productDepartment,
-    productDisplayName,
-    productDisplayText,
-    productSmallImageUrl,
-    productRepositoryId,
-    skuFinalPrice,
-    skuLastPrice,
-    skuRepositoryId,
-    skuUnitOfMeasure,
-    skuWeighable,
+const PDPCardView = withRouter(
+  ({ product, host, defaultImage, history, addToCart: actionAddToCart }) => {
+    const {
+      DeliveryEligible,
+      DeliveryInStock,
+      PickupEligible,
+      PickupInStock,
+      productDepartment,
+      productDisplayName,
+      productSmallImageUrl,
+      productRepositoryId,
+      skuFinalPrice,
+      skuLastPrice,
+      skuRepositoryId,
+      skuUnitOfMeasure,
+      skuWeighable,
 
-    specialPrice,
-    basePrice,
-    isPriceStrike,
-    breadcrumb,
-    skuType,
-    status,
-    skuStatus,
-    comparisonData,
-    categoryDisplay,
-    department,
-    auxiliaryMedia,
-    sku = {},
-    freeShipping,
-    seoURL,
-    paymentPlans,
-    maxQuantity,
-    skuToDisplay,
-    longDescription = ""
-  } = product;
+      specialPrice,
+      basePrice,
+      isPriceStrike,
+      breadcrumb,
+      skuType,
+      status,
+      skuStatus,
+      comparisonData,
+      categoryDisplay,
+      department,
+      auxiliaryMedia,
+      skuId,
+      sku = {},
+      freeShipping,
+      seoURL,
+      paymentPlans,
+      maxQuantity,
+      skuToDisplay,
+      longDescription = ""
+    } = product;
 
-  if (!product) return <ActivityIndicator size="large" color="#0000ff" />;
+    if (!product) return <ActivityIndicator size="large" color="#0000ff" />;
 
-  const prodMedia = sku.auxiliaryMedia || [];
-  return (
-    <Card
-      style={{
-        padding: 2
-      }}
-    >
-      <CardItem header>
-        <Text>{sku.shortDescription}</Text>
-      </CardItem>
-      <CardItem
-        header
+    const prodMedia = sku.auxiliaryMedia || [];
+    const productDisplayText = `${sku.brand || ""} ${sku.displayName ||
+      ""} ${sku.shopTicketDesc || ""}`;
+    return (
+      <Card
         style={{
-          zIndex: 10,
-          position: "absolute",
-          top: 5
+          padding: 2
         }}
       >
-        <Left>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "flex-start",
-              flexDirection: "row"
-            }}
-          >
-            <MaterialCommunityIcons
-              name="truck-fast"
-              style={{
-                fontSize: 18,
-                marginRight: 2,
-                color: DeliveryEligible ? "#80bd01" : "red"
-              }}
-            />
-            <MaterialCommunityIcons
-              name="store"
-              style={{
-                fontSize: 18,
-                color: PickupEligible ? "#80bd01" : "red"
-              }}
-            />
-          </View>
-        </Left>
-      </CardItem>
-      <CardItem>
-        <Body>
-          {/* <Gallery
+        <CardItem>
+          <Body>
+            {/* <Gallery
             entries={prodMedia}
             sliderWidth={device.width}
             itemWidth={device.width - 20}
           /> */}
-          <CarousalView
-            entries={prodMedia}
-            sliderWidth={device.width}
-            itemWidth={device.width - 20}
-          ></CarousalView>
-        </Body>
-      </CardItem>
-      <CardItem>
-        <Body style={{ flex: 1 }}>
-          {/* <WebView
-                useWebKit={true}
-                originWhitelist={["*"]}
-                source={{ html: `<p>${longDescription}</p>` }}
-              /> */}
-          <Text>{longDescription.replace("<br/>", "\n")}</Text>
-        </Body>
-      </CardItem>
-      <CardItem>
-        <Body>
-          <Row
+            <CarousalView
+              entries={prodMedia}
+              sliderWidth={device.width}
+              itemWidth={device.width - 20}
+            />
+          </Body>
+        </CardItem>
+        <CardItem>
+          <Body>
+            <Row
+              style={{
+                alignItems: "center",
+                borderColor: "#d6d7da"
+              }}
+            >
+              <Col>
+                <Text
+                  numberOfLines={2}
+                  style={{
+                    margin: 5,
+                    fontWeight: "bold",
+                    fontSize: 18,
+                    color: "#676767",
+                    textAlign: "center"
+                  }}
+                >
+                  {productDisplayText}
+                </Text>
+              </Col>
+            </Row>
+          </Body>
+        </CardItem>
+        <CardItem>
+          <Body
             style={{
-              alignItems: "center",
-              borderColor: "#d6d7da"
+              padding: 2
             }}
           >
-            <Col>
-              <Text
-                numberOfLines={2}
-                style={{
-                  fontWeight: "bold",
-                  fontSize: 12,
-                  color: "#676767",
-                  textAlign: "center"
-                }}
-              >
-                {productDisplayText}
-              </Text>
-            </Col>
-          </Row>
-          <Row>
             <View
               style={{
                 flex: 1,
-                justifyContent: "space-around",
+                justifyContent: "center",
                 alignContent: "center",
                 alignItems: "center",
+                alignSelf: "center",
                 flexDirection: "row"
               }}
             >
-              <Price price={specialPrice} bold={true} primary={true} />
-              {isPriceStrike && (
-                <Price price={basePrice} strike={true} secondary />
-              )}
+              <MaterialCommunityIcons
+                name="truck-fast"
+                style={{
+                  fontSize: 22,
+                  marginRight: 20,
+                  color: DeliveryEligible ? "#80bd01" : "red"
+                }}
+              />
+              <MaterialCommunityIcons
+                name="store"
+                style={{
+                  fontSize: 22,
+                  color: PickupEligible ? "#80bd01" : "red"
+                }}
+              />
             </View>
-          </Row>
-        </Body>
-      </CardItem>
-      <CardItem
-        style={{
-          padding: 2,
-          margin: 0
-        }}
-      >
-        <Body
+          </Body>
+        </CardItem>
+        <CardItem>
+          <Body>
+            <View style={{ flex: 1, flexDirection: "column" }}>
+              <ScrollView>
+                <WebView
+                  automaticallyAdjustContentInsets={false}
+                  style={{
+                    flex: 1,
+                    height: 320,
+                    width: device.width
+                  }}
+                  useWebKit={true}
+                  originWhitelist={["*"]}
+                  source={{ html: `<p>${longDescription}</p>` }}
+                />
+              </ScrollView>
+            </View>
+          </Body>
+        </CardItem>
+        <CardItem>
+          <Body>
+            <Row>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "space-around",
+                  alignContent: "center",
+                  alignItems: "center",
+                  flexDirection: "row"
+                }}
+              >
+                <Price price={specialPrice} bold={true} primary={true} />
+                {isPriceStrike && (
+                  <Price price={basePrice} strike={true} secondary />
+                )}
+              </View>
+            </Row>
+          </Body>
+        </CardItem>
+        <CardItem
           style={{
             padding: 2,
             margin: 0
           }}
         >
-          <Right>
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "flex-end",
-                flexDirection: "row"
-              }}
-            >
-              <Button
+          <Body
+            style={{
+              padding: 2,
+              margin: 0
+            }}
+          >
+            <Right>
+              <View
                 style={{
-                  padding: 2,
-                  backgroundColor: "#0077c5",
                   flex: 1,
-                  justifyContent: "center",
-                  alignContent: "center",
-                  alignItems: "center"
+                  justifyContent: "flex-end",
+                  flexDirection: "row"
                 }}
               >
-                <FontAwesome
-                  name="cart-plus"
+                <Button
                   style={{
-                    color: "white",
-                    fontSize: 30,
-                    fontWeight: "bold"
+                    padding: 2,
+                    backgroundColor: "#0077c5",
+                    flex: 1,
+                    justifyContent: "center",
+                    alignContent: "center",
+                    alignItems: "center"
                   }}
-                />
-              </Button>
-            </View>
-          </Right>
-        </Body>
-      </CardItem>
-    </Card>
-  );
-});
+                  onPress={() => {
+                    actionAddToCart({
+                      title: productDisplayText,
+                      image: sku.thumbnailImageUrl,
+                      id: skuId,
+                      delivery: DeliveryEligible,
+                      pickup: PickupEligible,
+                      price: specialPrice,
+                      skuLastPrice: basePrice
+                    });
+                  }}
+                >
+                  <FontAwesome
+                    name="cart-plus"
+                    style={{
+                      color: "white",
+                      fontSize: 30,
+                      fontWeight: "bold"
+                    }}
+                  />
+                </Button>
+              </View>
+            </Right>
+          </Body>
+        </CardItem>
+      </Card>
+    );
+  }
+);
 
-export default PDPCardView;
+const mapDispatchToProps = dispatch => {
+  return {
+    dispatch,
+    ...bindActionCreators({ addToCart }, dispatch)
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(PDPCardView);
 
 AppRegistry.registerComponent("RRSamsApp", () => PDPCardView);
