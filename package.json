@@ -9,6 +9,7 @@
   "dependencies": {
     "connected-react-router": "^6.4.0",
     "expo": "^32.0.0",
+    "firebase": "^6.0.2",
     "history": "^4.9.0",
     "lodash": "^4.17.11",
     "lottie-react-native": "^2.6.1",

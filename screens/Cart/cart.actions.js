@@ -2,6 +2,25 @@
 import { createAction } from "redux-actions";
 import { get, post } from "../../request/request.api";
 import { createRequestActions } from "../../request/request.utils";
+import { userCart } from "./cart.selectors";
+import * as firebase from "firebase";
+import "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAC3-Mn-jUF07cjiIz9-FV4ZrA9BP5ifX4",
+  authDomain: "onemex-8d535.firebaseapp.com",
+  databaseURL: "https://onemex-8d535.firebaseio.com",
+  projectId: "onemex-8d535",
+  storageBucket: "onemex-8d535.appspot.com",
+  messagingSenderId: "125184474941",
+  appId: "1:125184474941:web:bb4e8d84006a4fef"
+};
+
+firebase.initializeApp(firebaseConfig);
+firebase.auth();
+const db = firebase.firestore();
+const docCart = db.collection("cart").doc("sams");
+
 export const {
   fetchCartRequest,
   fetchCartSuccess,
@@ -30,7 +49,7 @@ export const fetchCartList = product => (dispatch, getState) => {
   dispatch(fetchCartRequest());
 };
 
-export const cleanCartRequest = createAction('CLEAN_ITEMS_FROM_CART');
+export const cleanCartRequest = createAction("CLEAN_ITEMS_FROM_CART");
 
 export const fetchBackendUrl = ({
   url,
@@ -57,7 +76,26 @@ export const fetchBackendUrl = ({
     });
 };
 
-export const addToCart = (product) => (dispatch, getState) => {
+export const addToCart = product => (dispatch, getState) => {
   dispatch(addCartRequest());
   dispatch(addCartSuccess(product));
-}
+
+  const cart = userCart(getState());
+  docCart
+    .set({
+      list: cart
+    })
+    .then(() => {
+      // docCart.get().then(function(doc) {
+      //   if (doc.exists) {
+      //     console.log("Document data:", doc.data());
+      //   } else {
+      //     // doc.data() will be undefined in this case
+      //     console.log("No such document!");
+      //   }
+      // });
+    })
+    .catch(function(error) {
+      // console.error("Error adding document: ", error);
+    });
+};
