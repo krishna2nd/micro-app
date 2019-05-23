@@ -1,5 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import { StyleSheet, AppRegistry, Image, ScrollView } from "react-native";
 import {
   Container,
@@ -15,18 +17,17 @@ import {
   Body,
   Right
 } from "native-base";
+import { CreateOrder } from "../Confirm/confirmation.actions";
 import device from "../../constants/Layout";
+import { userCart, cartTotals } from "../Cart/cart.selectors";
 
-const PaymentScreen = withRouter(() => (
+const PaymentComponent = withRouter(() => (
   <ScrollView horizontal={false}>
     <Container>
       <Content>
         <Card>
           <CardItem
             cardBody
-            onPress={() => {
-              this.props.history.push("/confirm");
-            }}
           >
             <Image
               source={require("../../assets/payment.png")}
@@ -36,9 +37,6 @@ const PaymentScreen = withRouter(() => (
                 width: null,
                 flex: 1
               }}
-              onPress={() => {
-                this.props.history.push("/confirm");
-              }}
             />
           </CardItem>
         </Card>
@@ -46,5 +44,19 @@ const PaymentScreen = withRouter(() => (
     </Container>
   </ScrollView>
 ));
+
+const mapStateToProps = state => ({
+  list: userCart(state),
+  ...cartTotals(state)
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  CreateOrder
+}, dispatch);
+
+const PaymentScreen = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PaymentComponent);
 
 export { PaymentScreen };

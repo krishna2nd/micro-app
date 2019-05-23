@@ -2,24 +2,9 @@ import React from "react";
 import { View, Text, ScrollView } from "react-native";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import CartScreen from "../Cart/cart.connect";
-import {
-  fetchCartList,
-  fetchCartRequest,
-  fetchCartSuccess,
-  fetchCartFailure,
-  addCartRequest,
-  addCartSuccess,
-  addCartFailure,
-  removeCartRequest,
-  removeCartSuccess,
-  removeCartFailure,
-  updateCartRequest,
-  updateCartSuccess,
-  updateCartFailure
-} from "../Cart/cart.actions";
+import { ConfirmationItems } from "./confirmation.screen";
 import device from "../../constants/Layout";
-import { userCart, cartTotals } from "../Cart/cart.selectors";
+import { userCart, cartTotals } from "./confirm.selectors";
 import LottieView from "lottie-react-native";
 
 const ConfirmComponent = props => {
@@ -60,7 +45,7 @@ const ConfirmComponent = props => {
       >
         Order No: {Date.now()}
       </Text>
-      <CartScreen />
+      <ConfirmationItems {...props} />
     </ScrollView>
   );
 };
@@ -70,13 +55,7 @@ const mapStateToProps = state => ({
   ...cartTotals(state)
 });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      fetchCartList
-    },
-    dispatch
-  );
+const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
 
 const ConfirmScreen = connect(
   mapStateToProps,

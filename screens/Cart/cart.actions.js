@@ -30,6 +30,8 @@ export const fetchCartList = product => (dispatch, getState) => {
   dispatch(fetchCartRequest());
 };
 
+export const cleanCartRequest = createAction('CLEAN_ITEMS_FROM_CART');
+
 export const fetchBackendUrl = ({
   url,
   method,

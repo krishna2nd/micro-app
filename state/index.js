@@ -79,6 +79,8 @@ const configureStore = (preloadedState = {}) => {
     });
   }
   const persistor = persistStore(store);
+  //persistor.purge();
+  //persistor.flush();
   // Reactotron.configure()
   //   .use(reactotronRedux())
   //   .useReactNative()

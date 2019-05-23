@@ -15,7 +15,8 @@ import {
   removeCartFailure,
   updateCartRequest,
   updateCartSuccess,
-  updateCartFailure
+  updateCartFailure,
+  cleanCartRequest
 } from "./cart.actions";
 
 const initialState = {
@@ -24,6 +25,10 @@ const initialState = {
 
 export const CartReducer = handleActions(
   {
+    [cleanCartRequest]: (state, payload) => ({
+      ...state,
+      list: []
+    }),
     [fetchCartRequest]: (state, payload) => ({
       ...state,
       loading: true

@@ -1,4 +1,5 @@
 import React from "react";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { Animated, Easing, View } from "react-native";
@@ -25,6 +26,7 @@ import {
 } from "native-base";
 import { Card, Title, Paragraph } from "react-native-paper";
 import { userCart, cartTotals } from "./cart.selectors";
+import { CreateOrder } from "../Confirm/confirmation.actions";
 
 export class CartFooterScreen extends React.Component {
   render() {
@@ -43,6 +45,7 @@ export class CartFooterScreen extends React.Component {
           <Button
             onPress={() => {
               if (location.pathname === '/payment') {
+                this.props.CreateOrder();
                 this.props.history.push("/confirm");
               }
               else this.props.history.push("/payment");
@@ -85,7 +88,9 @@ const mapStateToProps = state => ({
   ...cartTotals(state)
 });
 
-const mapDispatchToProps = dispatch => ({ dispatch });
+const mapDispatchToProps = dispatch => bindActionCreators({
+  CreateOrder
+}, dispatch);
 
 export default connect(
   mapStateToProps,
