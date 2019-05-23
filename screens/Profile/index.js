@@ -64,9 +64,7 @@ class SettingsScreen extends Component {
             <Avatar
               rounded
               size="large"
-              source={{
-                uri: require('./../../assets/profile.jpeg'),
-              }}
+              source={ require('./../../assets/profile.jpeg')}
             />
           </View>
           <View>
