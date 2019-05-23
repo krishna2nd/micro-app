@@ -13,7 +13,7 @@ import {
   AppRegistry
 } from "react-native";
 import { Avatar, Divider, Image, Header } from "react-native-elements";
-import { Button, Card, Title, Paragraph } from "react-native-paper";
+import { Card } from "native-base";
 import {
   setBreakPoints,
   Row,
@@ -63,7 +63,6 @@ const DepartmentColumnView = ({
           key={department.displayName}
           style={{
             borderWidth: 0.5,
-            margin: 4,
             borderColor: "#EFEFEF"
           }}
         >
@@ -106,9 +105,9 @@ const DepartmentColumnView = ({
   for (; index < departments.length - 2; index += 3) {
     rows.push(
       <Row key={index}>
-        <Col size={33}>{departmentCard(departments[index])}</Col>
-        <Col size={33}>{departmentCard(departments[index + 1])}</Col>
-        <Col size={33}>{departmentCard(departments[index + 2])}</Col>
+        <Col size={30}>{departmentCard(departments[index])}</Col>
+        <Col size={30}>{departmentCard(departments[index + 1])}</Col>
+        <Col size={30}>{departmentCard(departments[index + 2])}</Col>
       </Row>
     );
   }
@@ -165,7 +164,7 @@ const DepartmentScrollView = ({ departments, host, defaultImage }) => (
                 height: 80,
                 width: 100,
                 marginLeft: 5,
-                paddingBottom: 5
+                padding: 5
               }}
             >
               <View

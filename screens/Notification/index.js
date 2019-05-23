@@ -5,7 +5,7 @@ import TouchableScale from "react-native-touchable-scale";
 import { LinearGradient } from "expo";
 import { withRouter } from "react-router";
 import device from "../../constants/Layout";
-import { Button, Card, Title, Paragraph } from "react-native-paper";
+import { Card } from "native-base";
 
 const styles = StyleSheet.create({
   card: {
