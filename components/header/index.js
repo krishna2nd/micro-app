@@ -35,20 +35,28 @@ const CartHeader = () => (
       </Button>
     </Left>
     <Body>
-      <Title style={{ color: "#898989" }}>Checkout</Title>
+      <Left>
+        <Text style={{ color: "#898989" }}>Checkout</Text>
+      </Left>
     </Body>
   </Header>
 );
 class SamsHeader extends Component {
   render() {
     const { location, totalCount = 0 } = this.props;
-    if (location.pathname === "/cart") return <CartHeader />;
+    const isCart = location.pathname === "/cart";
     return (
       <Header style={styles.header}>
         <Left>
-          <Button transparent>
-            <Icon name="menu" style={styles.icon} />
-          </Button>
+          {!isCart ? (
+            <Button transparent>
+              <Icon name="menu" style={styles.icon} />
+            </Button>
+          ) : (
+            <Link to="/">
+              <Icon name="home" style={styles.icon} />
+            </Link>
+          )}
         </Left>
         <Body>
           <View
@@ -65,21 +73,25 @@ class SamsHeader extends Component {
             />
           </View>
         </Body>
-        <Right>
-          <Button transparent>
-            <Icon name="search" style={styles.icon} />
-          </Button>
-          <Button transparent>
-            <Link to="/cart">
-              <View>
-                <Badge success style={styles.badge}>
-                  <Text style={{ color: "white", fontSize: 10 }}>{totalCount}</Text>
-                </Badge>
-                <Icon name="cart" style={{ ...styles.icon }} />
-              </View>
-            </Link>
-          </Button>
-        </Right>
+        {!isCart && (
+          <Right>
+            <Button transparent>
+              <Icon name="search" style={styles.icon} />
+            </Button>
+            <Button transparent>
+              <Link to="/cart">
+                <View>
+                  <Badge success style={styles.badge}>
+                    <Text style={{ color: "white", fontSize: 10 }}>
+                      {totalCount}
+                    </Text>
+                  </Badge>
+                  <Icon name="cart" style={{ ...styles.icon }} />
+                </View>
+              </Link>
+            </Button>
+          </Right>
+        )}
       </Header>
     );
   }

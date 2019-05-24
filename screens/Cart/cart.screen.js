@@ -70,9 +70,13 @@ export class CartScreen extends React.Component {
                   </Body>
                   <Right>
                     <Badge info>
-                      <Text>{item.count|| 1}</Text>
+                      <Text>{item.count || 1}</Text>
                     </Badge>
-                    <Price price={item.price * (item.count || 1)} bold={true} primary={true} />
+                    <Price
+                      price={item.price * (item.count || 1)}
+                      bold={true}
+                      primary={true}
+                    />
                   </Right>
                 </ListItem>
               ))}
@@ -120,13 +124,13 @@ export class CartScreen extends React.Component {
 
               <View style={{ flex: 1, marginRight: 15 }}>
                 <View style={styles.row}>
-                  <Text style={{flex: 1}} >Sub total</Text>
+                  <Text style={{ flex: 1 }}>Sub total</Text>
                   <View style={{ alignSelf: "flex-start" }}>
                     <Price price={subTotal} bold={true} primary={true} />
                   </View>
                 </View>
                 <View style={styles.row}>
-                  <Text style={{flex: 1}} >Discount</Text>
+                  <Text style={{ flex: 1 }}>Discount</Text>
                   <View style={{ alignSelf: "flex-start" }}>
                     <Price price={discount} bold={true} primary={true} />
                   </View>

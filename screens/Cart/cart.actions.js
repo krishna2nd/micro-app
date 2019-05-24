@@ -3,34 +3,7 @@ import { createAction } from "redux-actions";
 import { get, post } from "../../request/request.api";
 import { createRequestActions } from "../../request/request.utils";
 import { userCart } from "./cart.selectors";
-import { store } from "../../state";
-
-import * as firebase from "firebase";
-import "firebase/firestore";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAC3-Mn-jUF07cjiIz9-FV4ZrA9BP5ifX4",
-  authDomain: "onemex-8d535.firebaseapp.com",
-  databaseURL: "https://onemex-8d535.firebaseio.com",
-  projectId: "onemex-8d535",
-  storageBucket: "onemex-8d535.appspot.com",
-  messagingSenderId: "125184474941",
-  appId: "1:125184474941:web:bb4e8d84006a4fef"
-};
-
-firebase.initializeApp(firebaseConfig);
-firebase.auth();
-const db = firebase.firestore();
-// db.settings({
-//   cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED
-// });
-// db.enablePersistence();
-
-const docCart = db.collection("cart").doc("sams");
-
-docCart.onSnapshot(function(doc) {
-  store.dispatch(fetchCartSuccess(doc.data()));
-});
+import { docCart } from "../../state/firebase";
 
 export const {
   fetchCartRequest,
@@ -56,6 +29,26 @@ export const {
   updateCartFailure
 } = createRequestActions("updateCart", "cart");
 
+export const {
+  clearCartRequest,
+  clearCartSuccess,
+  clearCartFailure
+} = createRequestActions("clearCart", "cart");
+
+export const clearCart = () => (dispatch, getState) => {
+  dispatch(clearCartRequest());
+  docCart
+    .set({
+      list: []
+    })
+    .then(() => {
+      dispatch(clearCartSuccess());
+    })
+    .catch(function(error) {
+      dispatch(clearCartFailure());
+    });
+};
+
 export const fetchCartList = product => (dispatch, getState) => {
   dispatch(fetchCartRequest());
   docCart
@@ -71,8 +64,6 @@ export const fetchCartList = product => (dispatch, getState) => {
     })
     .catch(() => {});
 };
-
-export const cleanCartRequest = createAction("CLEAN_ITEMS_FROM_CART");
 
 export const fetchBackendUrl = ({
   url,

@@ -25,7 +25,7 @@ import devTools from "remote-redux-devtools";
 import { devToolsEnhancer } from "redux-devtools-extension";
 import { persistStore, persistReducer } from "redux-persist";
 import { AsyncStorage, NativeModules } from "react-native";
-
+import { fetchCartSuccess } from "../screens/Cart/cart.actions";
 import { createContext } from "../request";
 
 /* === MIDDLEWARES === */
@@ -34,6 +34,7 @@ import thunk from "redux-thunk";
 
 /* === REDUCER === */
 import rootReducer from "./reducers";
+import { sync, docCart } from "./firebase";
 
 //if (process.env.NODE_ENV === "development") {
 // NativeModules.DevSettings.setIsDebuggingRemotely(true);
@@ -86,6 +87,11 @@ const configureStore = (preloadedState = {}) => {
   //   .useReactNative()
   //   .connect();
   // Reactotron.log(store, history, store.getState());
+  sync(() => {
+    docCart.onSnapshot(function(doc) {
+      store.dispatch(fetchCartSuccess(doc.data()));
+    });
+  });
   return {
     store,
     persistor,

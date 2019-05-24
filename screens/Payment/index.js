@@ -22,14 +22,16 @@ import device from "../../constants/Layout";
 import { userCart, cartTotals } from "../Cart/cart.selectors";
 
 const PaymentComponent = withRouter(() => (
-  <ScrollView horizontal={false}
+  <ScrollView
+    horizontal={false}
+    style={{
+      height: device.height
+    }}
   >
     <Container>
       <Content>
         <Card>
-          <CardItem
-            cardBody
-          >
+          <CardItem cardBody>
             <Image
               resizeMode="contain"
               source={require("../../assets/payment.png")}
@@ -50,9 +52,13 @@ const mapStateToProps = state => ({
   ...cartTotals(state)
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  CreateOrder
-}, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      CreateOrder
+    },
+    dispatch
+  );
 
 const PaymentScreen = connect(
   mapStateToProps,

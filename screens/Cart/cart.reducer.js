@@ -34,7 +34,7 @@ export const CartReducer = handleActions(
       loading: true
     }),
     [fetchCartSuccess]: (state, { payload: { response } }) => {
-      console.log("@payload", response)
+      // console.log("@payload", response)
       return {
       ...state,
       ...response,
