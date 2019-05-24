@@ -35,6 +35,7 @@ export class HomeScreen extends React.Component {
   };
 
   componentDidMount() {
+    this.props.fetchCartList()
     this.props.fetchHomeLayout(this.props.url);
   }
   goToTop = () => {

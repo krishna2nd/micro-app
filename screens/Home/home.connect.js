@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import { HomeScreen } from "./home.screen";
 import { fetchHomeLayout } from "./home.actions";
+import { fetchCartList } from "../Cart/cart.actions";
 import {
   getBanners,
   getCategories,
@@ -31,7 +32,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      fetchHomeLayout: fetchHomeLayout
+      fetchHomeLayout: fetchHomeLayout,
+      fetchCartList
     },
     dispatch
   );

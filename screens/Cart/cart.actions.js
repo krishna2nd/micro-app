@@ -3,6 +3,8 @@ import { createAction } from "redux-actions";
 import { get, post } from "../../request/request.api";
 import { createRequestActions } from "../../request/request.utils";
 import { userCart } from "./cart.selectors";
+import { store } from "../../state";
+
 import * as firebase from "firebase";
 import "firebase/firestore";
 
@@ -19,7 +21,16 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.auth();
 const db = firebase.firestore();
+// db.settings({
+//   cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED
+// });
+// db.enablePersistence();
+
 const docCart = db.collection("cart").doc("sams");
+
+docCart.onSnapshot(function(doc) {
+  store.dispatch(fetchCartSuccess(doc.data()));
+});
 
 export const {
   fetchCartRequest,
@@ -47,6 +58,18 @@ export const {
 
 export const fetchCartList = product => (dispatch, getState) => {
   dispatch(fetchCartRequest());
+  docCart
+    .get()
+    .then(function(doc) {
+      if (doc.exists) {
+        const { list = [] } = doc.data();
+        if (list && list.length) {
+          // console.log(list);
+          dispatch(fetchCartSuccess({ list }));
+        }
+      }
+    })
+    .catch(() => {});
 };
 
 export const cleanCartRequest = createAction("CLEAN_ITEMS_FROM_CART");

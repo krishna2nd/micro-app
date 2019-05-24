@@ -33,11 +33,13 @@ export const CartReducer = handleActions(
       ...state,
       loading: true
     }),
-    [fetchCartSuccess]: (state, payload) => ({
+    [fetchCartSuccess]: (state, { payload: { response } }) => {
+      console.log("@payload", response)
+      return {
       ...state,
-      ...payload.request,
-      loading: true
-    }),
+      ...response,
+      loading: false
+    }},
     [addCartSuccess]: (state, { payload: { response } }) => {
       const product = {
         ...response,
